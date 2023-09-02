@@ -1,0 +1,22 @@
+<div>
+    <h1>Test Component</h1>
+    <p>Test component works!</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let test of tests">
+                <td>{{test.id}}</td>
+                <td>{{test.name}}</td>
+                <td>{{test.number}}</td>
+                <td>{{test.image}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
