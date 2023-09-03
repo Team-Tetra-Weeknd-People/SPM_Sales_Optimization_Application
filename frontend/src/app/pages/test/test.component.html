@@ -1,18 +1,19 @@
 <div>
     <!-- button to open modal -->
-    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+    <button class="btn btn-lg btn-outline-primary" (click)="openAdd(contentAdd)">Add new row</button>
 
-    <ng-template #content let-modal>
+    <!-- add modal -->
+    <ng-template #contentAdd let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Add new record</h4>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
-            <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="testForm" (ngSubmit)="onSubmitAdd()">
                 <div class="mb-3">
                     <label for="name">Name</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name"
+                        <input type="text" class="form-control" placeholder="Name" formControlName="name"
                             [ngClass]="{'is-invalid' : submitted && testForm.controls['name'].errors}">
                         <div *ngIf="submitted && testForm.controls['name'].errors" class="invalid-feedback">
                             <div *ngIf="testForm.controls['name'].errors['required']">Name is required</div>
@@ -53,14 +54,83 @@
                     <label for="image">Image</label>
                     <div class="input-group">
                         <input type="file" class="form-control" id="image" placeholder="Image" formControlName="image"
-                            [ngClass]="{'is-invalid' : submitted && testForm.controls['image'].errors}">
+                            [ngClass]="{'is-invalid' : submitted && testForm.controls['image'].errors}"
+                            (change)="upload($event)" accept="*.png.jpg">
                         <div *ngIf="submitted && testForm.controls['image'].errors" class="invalid-feedback">
                             <div *ngIf="testForm.controls['image'].errors['required']">Image is required</div>
                         </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-outline-dark">Save</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close')">Close</button>
+        </div>
+    </ng-template>
 
+    <!-- edit modal -->
+    <ng-template #contentEdit let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Edit record</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="testForm" (ngSubmit)="onSubmitEdit()">
+                <div class="mb-3">
+                    <label for="name">Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name"
+                            [ngClass]="{'is-invalid' : submitted && testForm.controls['name'].errors}">
+                        <div *ngIf="submitted && testForm.controls['name'].errors" class="invalid-feedback">
+                            <div *ngIf="testForm.controls['name'].errors['required']">Name is required</div>
+                            <div *ngIf="testForm.controls['name'].errors['minlength']">Name must be at least 5
+                                characters</div>
+                            <div *ngIf="testForm.controls['name'].errors['maxlength']">Name cannot be more than 10
+                            </div>
+                            <div *ngIf="testForm.controls['name'].errors['pattern']">Name must be only letters</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="number">Number</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="number" placeholder="Number"
+                            formControlName="number"
+                            [ngClass]="{'is-invalid' : submitted && testForm.controls['number'].errors}">
+                        <div *ngIf="submitted && testForm.controls['number'].errors" class="invalid-feedback">
+                            <div *ngIf="testForm.controls['number'].errors['required']">Number is required</div>
+                            <div *ngIf="testForm.controls['number'].errors['min']">Number must be greater than 5</div>
+                            <div *ngIf="testForm.controls['number'].errors['max']">Number must be less than 20
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="name">Email</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="email" placeholder="Email" formControlName="email"
+                            [ngClass]="{'is-invalid' : submitted && testForm.controls['email'].errors}">
+                        <div *ngIf="submitted && testForm.controls['email'].errors" class="invalid-feedback">
+                            <div *ngIf="testForm.controls['email'].errors['required']">Email is required</div>
+                            <div *ngIf="testForm.controls['email'].errors['email']">Email must be valid</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image">Image</label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="image" placeholder="Image" formControlName="image"
+                            [ngClass]="{'is-invalid' : submitted && testForm.controls['image'].errors}"
+                            (change)="upload($event)" accept="*.png.jpg">
+                        <div *ngIf="submitted && testForm.controls['image'].errors" class="invalid-feedback">
+                            <div *ngIf="testForm.controls['image'].errors['required']">Image is required</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Save</button>
 
             </form>
         </div>
@@ -93,10 +163,10 @@
                     <img [src]="test.image" alt="No Image" width="100" height="100">
                 </td>
                 <td>
-                    <button class="btn btn-outline-dark" (click)="open(content)">Edit</button>
+                    <button class="btn btn-outline-dark" (click)="openEdit(contentEdit , test.id)">Edit</button>
                 </td>
                 <td>
-                    <button class="btn btn-outline-dark" (click)="open(content)">Delete</button>
+                    <button class="btn btn-outline-dark" (click)="handleDelete(test.id)">Delete</button>
                 </td>
             </tr>
         </tbody>
