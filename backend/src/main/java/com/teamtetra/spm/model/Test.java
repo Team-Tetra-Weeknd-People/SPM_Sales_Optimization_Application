@@ -14,5 +14,7 @@ public class Test {
     @Id
     private String id;
     private String name;
-    private String number;
+    private int number;
+    private String email;
+    private String image;
 }
