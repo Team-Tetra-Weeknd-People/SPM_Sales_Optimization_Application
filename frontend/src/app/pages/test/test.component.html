@@ -53,7 +53,8 @@
                     <label for="image">Image</label>
                     <div class="input-group">
                         <input type="file" class="form-control" id="image" placeholder="Image" formControlName="image"
-                            [ngClass]="{'is-invalid' : submitted && testForm.controls['image'].errors}">
+                            [ngClass]="{'is-invalid' : submitted && testForm.controls['image'].errors}"
+                            (change)="upload($event)" accept="*.png.jpg">
                         <div *ngIf="submitted && testForm.controls['image'].errors" class="invalid-feedback">
                             <div *ngIf="testForm.controls['image'].errors['required']">Image is required</div>
                         </div>
