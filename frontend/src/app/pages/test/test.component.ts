@@ -79,8 +79,8 @@ export class TestComponent implements OnInit {
     response.subscribe((data) => {
       Swal.fire({
         icon: 'success',
-        title: 'Your data has been saved',
-
+        title: 'New Data Added',
+        text: 'Your data has been added',
         showConfirmButton: false,
         timer: 1500,
       }).then(() => {
@@ -117,8 +117,8 @@ export class TestComponent implements OnInit {
     response.subscribe((data) => {
       Swal.fire({
         icon: 'success',
-        title: 'Your data has been updated',
-
+        title: 'Data Updated',
+        text: 'Your data has been updated',
         showConfirmButton: false,
         timer: 1500,
       }).then(() => {
@@ -126,6 +126,37 @@ export class TestComponent implements OnInit {
         response.subscribe((data) => (this.tests = data));
         this.modalService.dismissAll();
       });
+    });
+  }
+
+  async handleDelete(id: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //delete data from database
+        let response = this.http.delete('http://localhost:8090/test/' + id);
+        response.subscribe((data) => {
+          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Data Deleted',
+            text: 'Your data has been deleted',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            let response = this.http.get('http://localhost:8090/test/');
+            response.subscribe((data) => (this.tests = data));
+            this.modalService.dismissAll();
+          });
+        });
+      }
     });
   }
 
