@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -14,6 +16,7 @@ export class TestComponent implements OnInit {
   testForm!: FormGroup;
   submitted = false;
   path: String = '';
+  testID: String = '';
 
   constructor(
     private http: HttpClient,
@@ -50,7 +53,7 @@ export class TestComponent implements OnInit {
     this.path = event.target.files[0];
   }
 
-  async onSubmit() {
+  async onSubmitAdd() {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -66,8 +69,64 @@ export class TestComponent implements OnInit {
     const url = await uploadTask.ref.getDownloadURL();
     console.log(url);
 
-    // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.testForm.value, null, 4));
+    //add data to database
+    let response = this.http.post('http://localhost:8090/test/', {
+      name: this.testForm.value.name,
+      number: this.testForm.value.number,
+      email: this.testForm.value.email,
+      image: url,
+    });
+    response.subscribe((data) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Your data has been saved',
+
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        let response = this.http.get('http://localhost:8090/test/');
+        response.subscribe((data) => (this.tests = data));
+        this.modalService.dismissAll();
+      });
+    });
+  }
+
+  async onSubmitEdit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.testForm.invalid) {
+      return;
+    }
+
+    //image upload
+    const uploadTask = await this.fireStorage.upload(
+      '/test/' + Math.random() + this.path,
+      this.path
+    );
+    const url = await uploadTask.ref.getDownloadURL();
+    console.log(url);
+
+    //edit data to database
+    let response = this.http.put('http://localhost:8090/test/' + this.testID, {
+      name: this.testForm.value.name,
+      number: this.testForm.value.number,
+      email: this.testForm.value.email,
+      image: url,
+    });
+    response.subscribe((data) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Your data has been updated',
+
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        let response = this.http.get('http://localhost:8090/test/');
+        response.subscribe((data) => (this.tests = data));
+        this.modalService.dismissAll();
+      });
+    });
   }
 
   openModal(content: any) {
@@ -76,17 +135,40 @@ export class TestComponent implements OnInit {
 
   closeResult: string | undefined;
 
-  open(content: any) {
+  openAdd(content: any) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
         (result: any) => {
+          this.testForm.reset();
           this.closeResult = `Closed with: ${result}`;
         },
         (reason: any) => {
+          this.testForm.reset();
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         }
       );
+  }
+
+  openEdit(content: any, id: any) {
+    this.testID = id;
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result: any) => {
+          this.testForm.reset();
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason: any) => {
+          this.testForm.reset();
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+
+    let response = this.http.get('http://localhost:8090/test/' + id);
+    response.subscribe((data) => {
+      this.testForm.patchValue(data);
+    });
   }
 
   private getDismissReason(reason: any): string {
