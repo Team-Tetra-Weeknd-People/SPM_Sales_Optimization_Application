@@ -31,6 +31,8 @@ public class TestService {
         } else {
             existingObj.setName(updatedObj.getName());
             existingObj.setNumber(updatedObj.getNumber());
+            existingObj.setEmail(updatedObj.getEmail());
+            existingObj.setImage(updatedObj.getImage());
             repository.save(existingObj);
             return true;
         }
