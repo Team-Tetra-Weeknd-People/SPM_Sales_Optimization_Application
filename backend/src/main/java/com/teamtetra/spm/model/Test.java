@@ -15,6 +15,6 @@ public class Test {
     private String id;
     private String name;
     private int number;
+    private String email;
     private String image;
-
 }
