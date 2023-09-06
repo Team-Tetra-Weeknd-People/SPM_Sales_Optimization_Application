@@ -1,7 +1,8 @@
 package com.teamtetra.spm.controller;
 
-import com.teamtetra.spm.model.Test;
-import com.teamtetra.spm.service.TestService;
+import com.teamtetra.spm.model.Item;
+import com.teamtetra.spm.model.User;
+import com.teamtetra.spm.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,25 +13,25 @@ import java.util.Optional;
 
 @CrossOrigin(value = "*")
 @RestController
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/item")
+public class ItemController {
 
     @Autowired
-    private TestService service;
+    private ItemService service;
 
     @PostMapping("/")
-    public ResponseEntity<Test> save(@RequestBody Test body){
-        Test responseBody = service.save(body);
+    public ResponseEntity<Item> save(@RequestBody Item body){
+        Item responseBody = service.save(body);
 
         if(responseBody == body) {
             return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
         }else{
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Test());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Item());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Test> update(@PathVariable String id , @RequestBody Test body){
+    public ResponseEntity<Item> update(@PathVariable String id , @RequestBody Item body){
         boolean response = service.update(id , body);
 
         if(response) {
@@ -41,19 +42,19 @@ public class TestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Test> delete(@PathVariable String id){
+    public ResponseEntity<Item> delete(@PathVariable String id){
         boolean response = service.delete(id);
 
         if(response){
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Test());
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Item());
         }else{
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Test());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Item());
         }
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Test>> getAll(){
-        List<Test> dataSet = service.getAll();
+    public ResponseEntity<List<Item>> getAll(){
+        List<Item> dataSet = service.getAll();
 
         if(!dataSet.isEmpty()){
             return ResponseEntity.status(HttpStatus.OK).body(dataSet);
@@ -63,8 +64,8 @@ public class TestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Test>> getOne(@PathVariable String id){
-        Optional<Test> data = service.getOne(id);
+    public ResponseEntity<Optional<Item>> getOne(@PathVariable String id){
+        Optional<Item> data = service.getOne(id);
 
         if(data.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(data);

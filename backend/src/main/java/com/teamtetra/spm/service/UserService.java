@@ -1,6 +1,5 @@
 package com.teamtetra.spm.service;
 
-import com.teamtetra.spm.model.Test;
 import com.teamtetra.spm.model.User;
 import com.teamtetra.spm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +54,19 @@ public class UserService {
         return repository.findById(id);
     }
 
+    public String login(User user){
+        User existingUser = repository.findByEmail(user.getEmail());
+
+        if(existingUser == null){
+            return "email";
+        }else {
+            if(existingUser.getPassword().equals(user.getPassword())){
+                return existingUser.getId();
+            }else{
+                return "password";
+            }
+        }
+    }
 }
 
 

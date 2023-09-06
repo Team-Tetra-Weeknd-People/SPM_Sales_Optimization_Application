@@ -1,6 +1,5 @@
 package com.teamtetra.spm.controller;
 
-import com.teamtetra.spm.model.Test;
 import com.teamtetra.spm.model.User;
 import com.teamtetra.spm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(value = "*")
@@ -72,5 +73,25 @@ public class UserController {
         }else{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map> login(@RequestBody User body){
+        String login = service.login(body);
+        Map<String, Object> response = new HashMap<>();
+        if(login.equals("email")){
+            response.put("status", false);
+            response.put("message", "NoUser");
+            response.put("id", null);
+        }else if(login.equals("password")){
+            response.put("status", false);
+            response.put("message", "ErrorPassword");
+            response.put("id", null);
+        }else{
+            response.put("status", true);
+            response.put("message", "Success");
+            response.put("id", login);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
