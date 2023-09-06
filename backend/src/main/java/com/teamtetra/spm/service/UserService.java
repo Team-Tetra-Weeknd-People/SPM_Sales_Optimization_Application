@@ -55,6 +55,19 @@ public class UserService {
         return repository.findById(id);
     }
 
+    public String login(User user){
+        User existingUser = repository.findByEmail(user.getEmail());
+
+        if(existingUser == null){
+            return "email";
+        }else {
+            if(existingUser.getPassword().equals(user.getPassword())){
+                return existingUser.getId();
+            }else{
+                return "password";
+            }
+        }
+    }
 }
 
 
