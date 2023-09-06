@@ -1,6 +1,5 @@
 package com.teamtetra.spm.controller;
 
-import com.teamtetra.spm.model.Test;
 import com.teamtetra.spm.model.User;
 import com.teamtetra.spm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
