@@ -1,9 +1,18 @@
-<nav>
-    <fa-icon [icon]="faCoffee"></fa-icon>
-    <fa-icon [icon]="faPhone"></fa-icon>
-    <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/route">Route</a></li>
-        <li><a routerLink="/test">Test</a></li>
-    </ul>
+<nav class="navCont">
+    <!-- 3 rows in 1 col -->
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                Column
+            </div>
+            <div class="col-9">
+                Column
+            </div>
+            <div class="col-2">
+                <button type="button" *ngIf="!isLoggedIn" class="btn btn-primary navbtn">Register</button>
+                <button type="button" *ngIf="!isLoggedIn" class="btn btn-primary navbtn loginbtn">Login</button>
+                <button type="button" *ngIf="isLoggedIn" class="btn btn-primary navbtn loginbtn">Logout</button>
+            </div>
+        </div>
+    </div>
 </nav>
