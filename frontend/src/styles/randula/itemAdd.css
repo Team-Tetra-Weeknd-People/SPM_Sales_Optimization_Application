@@ -1,0 +1,24 @@
+.items-container {
+    width: 80%;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 100px;
+    height: auto;
+}
+
+.barcodeContainer {
+    width: 90%;
+}
+
+.col1 {
+    background-color: aqua;
+    height: auto;
+}
+
+.col2 {
+    height: auto;
+}
+
+.barcodeImage {
+    width: 40%;
+}
