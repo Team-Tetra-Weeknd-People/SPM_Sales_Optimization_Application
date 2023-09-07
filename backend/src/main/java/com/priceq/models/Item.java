@@ -25,4 +25,6 @@ public class Item {
     private float msrp;
     private float hsrp;
     private float retailPrice;
+    private int quantity;
+    private String image;
 }
