@@ -1,4 +1,4 @@
-package com.teamtetra.spm;
+package com.priceq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
