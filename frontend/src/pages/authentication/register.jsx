@@ -55,7 +55,7 @@ function Register() {
       password: values.password,
       image: "sd",
     };
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/`,data)
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/`, data)
       .then((res) => {
         console.log(res);
         Swal.fire({
@@ -65,7 +65,7 @@ function Register() {
         }).then((result) => {
           if (result.isConfirmed) {
             const login = { email: values.email, password: values.password };
-            axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`,login)
+            axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
               .then((res) => {
                 sessionStorage.setItem("user", res.data.user);
                 window.location.href = "/";
