@@ -1,4 +1,4 @@
-package com.teamtetra.spm.model;
+package com.priceq.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +16,8 @@ public class User {
 
     @Id
     private String id;
-    private String fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
 
     @Indexed(unique = true)
     private String email;

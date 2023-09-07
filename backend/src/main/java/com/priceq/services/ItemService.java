@@ -1,7 +1,7 @@
-package com.teamtetra.spm.service;
+package com.priceq.services;
 
-import com.teamtetra.spm.model.Item;
-import com.teamtetra.spm.repository.ItemRepository;
+import com.priceq.models.Item;
+import com.priceq.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

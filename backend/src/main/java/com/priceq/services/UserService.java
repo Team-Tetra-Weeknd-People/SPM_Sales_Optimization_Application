@@ -1,7 +1,7 @@
-package com.teamtetra.spm.service;
+package com.priceq.services;
 
-import com.teamtetra.spm.model.User;
-import com.teamtetra.spm.repository.UserRepository;
+import com.priceq.models.User;
+import com.priceq.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +29,10 @@ public class UserService {
         if (existingUser == null) {
             return false;
         } else {
-            if(!updatedUser.getFName().isEmpty())
-                existingUser.setFName(updatedUser.getFName());
-            if(!updatedUser.getLName().isEmpty())
-                existingUser.setFName(updatedUser.getLName());
+            if(!updatedUser.getFirstName().isEmpty())
+                existingUser.setFirstName(updatedUser.getFirstName());
+            if(!updatedUser.getLastName().isEmpty())
+                existingUser.setFirstName(updatedUser.getLastName());
             if(!updatedUser.getEmail().isEmpty())
                 existingUser.setEmail(updatedUser.getEmail());
             if(!updatedUser.getContactNo().isEmpty())

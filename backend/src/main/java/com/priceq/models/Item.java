@@ -1,4 +1,4 @@
-package com.teamtetra.spm.model;
+package com.priceq.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,7 @@
-package com.teamtetra.spm.controller;
+package com.priceq.controllers;
 
-import com.teamtetra.spm.model.Item;
-import com.teamtetra.spm.model.User;
-import com.teamtetra.spm.service.ItemService;
+import com.priceq.models.Item;
+import com.priceq.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

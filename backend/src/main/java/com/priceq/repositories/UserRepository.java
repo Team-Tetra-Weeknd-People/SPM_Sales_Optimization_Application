@@ -1,6 +1,6 @@
-package com.teamtetra.spm.repository;
+package com.priceq.repositories;
 
-import com.teamtetra.spm.model.User;
+import com.priceq.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, String> {
