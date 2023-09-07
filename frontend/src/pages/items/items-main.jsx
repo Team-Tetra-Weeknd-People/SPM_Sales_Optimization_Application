@@ -32,7 +32,7 @@ function ItemsMain() {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="items-container">
         <Button onClick={toAddNewItem}>Add New Item</Button>
         <div className="item-list">
@@ -42,17 +42,22 @@ function ItemsMain() {
               <tr>
                 <th>Name</th>
                 <th>Item Code</th>
-                {/* Add headers for other item properties as needed */}
+                <th>View & Manage Item</th>
+                <th>Edit Item</th>
+                <th>Delete Item</th>
               </tr>
             </thead>
-            {/* <tbody>
+            <tbody>
               {allItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.itemCode}</td>
+                  <td><Button variant="primary">View</Button>{' '}</td>
+                  <td><Button variant="warning">Edit</Button>{' '}</td>
+                  <td><Button variant="danger">Delete</Button>{' '}</td>
                 </tr>
               ))}
-            </tbody> */}
+            </tbody>
           </Table>
         </div>
       </div>
