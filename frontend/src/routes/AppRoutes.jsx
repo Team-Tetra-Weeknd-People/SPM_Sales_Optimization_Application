@@ -6,6 +6,8 @@ import Register from '../pages/authentication/register';
 import ItemsMain from '../pages/items/items-main';
 import ItemAdd from '../pages/items/item-add';
 import BarcodeGenerator from '../pages/items/barcode-generator';
+import DataFeeder from "../pages/machine-learning/data-feeder";
+import MSRPGenerator from "../pages/machine-learning/msrp-generator";
 
 export default function App() {
     return (
@@ -18,6 +20,8 @@ export default function App() {
                     <Route path="/items-main" element={<ItemsMain />} />
                     <Route path="/item-add" element={<ItemAdd />} />
                     <Route path="/barcode-generator/:itemID" element={<BarcodeGenerator />} />
+                    <Route path="/msrp-generator/:itemID" element={<MSRPGenerator />} />
+                    <Route path="/d" element={<DataFeeder />} />
                 </Routes>
             </Router>
         </>

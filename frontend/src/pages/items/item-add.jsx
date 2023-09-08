@@ -88,6 +88,7 @@ export default function addItems() {
                 await axios.post(`${import.meta.env.VITE_BACKEND_URL}/item/`, data)
                     .then((res) => {
                         console.log(res.data);
+                        sessionStorage.setItem('itemJustAdded', data);
                         Swal.fire({
                             icon: "success",
                             title: "Item Added Successfully",
@@ -292,7 +293,7 @@ export default function addItems() {
                                                             "form-control" +
                                                             (errors.image && touched.image ? " is-invalid" : "")
                                                         }
-                                                        required
+                                                        
                                                     />
                                                     <div className="invalid-feedback">{errors.image}</div>
                                                 </div>
