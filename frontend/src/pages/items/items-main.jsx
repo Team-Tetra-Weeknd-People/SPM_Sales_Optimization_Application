@@ -94,10 +94,10 @@ function ItemsMain() {
               <Table striped>
                 <tbody>
                   <tr>
-                    <td>HSRP </td> <td>Rs.{item.hsrp.toFixed(2)}</td>
+                    <td>HSRP </td> <td>Rs.{item.hsrp}</td>
                   </tr>
                   <tr>
-                    <td>Retail Price</td> <td>Rs.{item.retailPrice.toFixed(2)}</td>
+                    <td>Retail Price</td> <td>Rs.{item.retailPrice}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -119,7 +119,7 @@ function ItemsMain() {
                     <td>{item.msrp === 0 ? (
                       <span>Not Calculated Yet ...</span>
                     ) : (
-                      <span>Rs.{item.msrp.toFixed(2)}</span>
+                      <span>Rs.{item.msrp}</span>
                     )
                     }</td>
                   </tr>
