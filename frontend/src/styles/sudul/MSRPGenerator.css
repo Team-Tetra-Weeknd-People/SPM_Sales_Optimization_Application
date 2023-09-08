@@ -1,46 +1,212 @@
+/* MSRPGenerator.css */
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 100px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.msrp-container {
+  display: flex;
+  justify-content: space-between; /* Place the elements in a row with space between them */
+  max-width: 1400px; /* Adjust the maximum width as needed */
+  margin: 0 auto;
+  padding: 20px;
+  min-width: 700px;
+}
+
+/* MSRP generator container styles (left) */
 .msrp-gen-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    margin-top: 70px;
-  }
-  
-  .input-container {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .result-container {
-    margin-top: 20px;
-  }
-  
-  .msrp-value {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
+  background-color: #61db7757;
+  flex: 1;
+  padding: 20px;
+  min-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Input container styles */
+.input-container {
+  margin-bottom: 15px;
+}
+
+/* Label styles */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Input field styles */
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Button styles */
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Result container styles */
+.result-container {
+  margin-top: 20px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: x-large;
+}
+
+/* MSRP value styles */
+.msrp-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Graph container styles (right) */
+.graph-msrp {
+  background-color: #61dbd757;
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  min-width: 700px;
+  /* Add additional styling for your graph container here */
+  /* Example: height: 400px; */
+}
+
+.change-retail-price {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  /* Add additional styling as needed */
+}
+
+.heading-msrp{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: xx-large;
+  color: #007bff;
+  font-weight: 700;
+}
+.form-group-msrp {
+  display:inline-flex;
+  align-items: center;
+  margin-top: 10px; /* Adjust the margin as needed */
+}
+
+/* Label styles for the form group */
+.form-group-msrp label {
+  flex: 1;
+  margin-right: 10px; /* Adjust the margin as needed for spacing */
+  font-weight: bold;
+  width: fit-content;
+}
+
+/* Input styles for the form group */
+.form-group-msrp input[type="float"] {
+  text-align: center;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%; /* Ensure the input takes up the available width */
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  -moz-appearance: textfield; /* Display as a text field in Firefox */
+}
+
+/* Apply styles to the number input for Firefox */
+.form-group-msrp input[type="float"]::-webkit-inner-spin-button,
+.form-group-msrp input[type="float"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove the spinners in WebKit browsers */
+  appearance: none; /* Remove the spinners in non-WebKit browsers */
+}
+
+.button-container-msrp {
+  text-align: center;
+  margin-top: 10px; /* Adjust the margin as needed */
+}
+
+.button-container-msrp input[type="submit"]{
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  background-color: #007bff;
+  color: #ffffff;
+}
+.button-container-msrp input[type="submit"]:hover{
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  background-color: #53e66c9a;
+  color: #000;
+}
+
+.red-msrp-desc{
+  font-size: small;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  color: #ba0909;
+}
+.msrp-item-details-container{
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.msrp-item-details{
+  display: flex;
+  justify-content: space-between; /* Place the elements in a row with space between them */
+  max-width: 1400px; /* Adjust the maximum width as needed */
+  margin: 0 auto;
+  min-width: 700px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.msrp-item-details-container h2{
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+}
+
+.msrp-item-details-left{
+  background-color: #61db7757;
+  flex: 1;
+  padding: 20px;
+  min-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  font-size: medium;
+}
+.msrp-item-details-left h3{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: x-large;
+  font-weight: 600;
+}
+.msrp-item-details-left img{
+  max-width: 300px;
+}
+.msrp-item-details-right{
+  background-color: #61db7757;
+  flex: 1;
+  padding: 20px;
+  min-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  font-size: medium;
+}
