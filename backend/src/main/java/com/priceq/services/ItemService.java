@@ -29,16 +29,32 @@ public class ItemService {
         if (existingItem == null) {
             return false;
         } else {
-            existingItem.setItemCode(updatedTtem.getItemCode());
-            existingItem.setName(updatedTtem.getName());
-            existingItem.setBarcode(updatedTtem.getBarcode());
-            existingItem.setDescription(updatedTtem.getDescription());
-            existingItem.setBrand(updatedTtem.getBrand());
-            existingItem.setColor(updatedTtem.getColor());
-            existingItem.setType(updatedTtem.getType());
-            existingItem.setMsrp(updatedTtem.getMsrp());
-            existingItem.setHsrp(updatedTtem.getHsrp());
-            existingItem.setRetailPrice(updatedTtem.getRetailPrice());
+            if(updatedTtem.getItemCode() != null)
+                existingItem.setItemCode(updatedTtem.getItemCode());
+            if(updatedTtem.getName() != null)
+                existingItem.setName(updatedTtem.getName());
+            if(updatedTtem.getBarcode() != null)
+                existingItem.setBarcode(updatedTtem.getBarcode());
+            if(updatedTtem.getDescription() != null)
+                existingItem.setDescription(updatedTtem.getDescription());
+            if(updatedTtem.getBrand() != null)
+                existingItem.setBrand(updatedTtem.getBrand());
+            if(updatedTtem.getColor() != null)
+                existingItem.setColor(updatedTtem.getColor());
+            if(updatedTtem.getType() != null)
+                existingItem.setType(updatedTtem.getType());
+            if(updatedTtem.getCost() != 0)
+                existingItem.setCost(updatedTtem.getCost());
+            if(updatedTtem.getMsrp() != 0)
+                existingItem.setMsrp(updatedTtem.getMsrp());
+            if(updatedTtem.getHsrp() != 0)
+                existingItem.setHsrp(updatedTtem.getHsrp());
+            if(updatedTtem.getRetailPrice() != 0)
+                existingItem.setRetailPrice(updatedTtem.getRetailPrice());
+            if(updatedTtem.getQuantity() != 0)
+                existingItem.setQuantity(updatedTtem.getQuantity());
+            if(updatedTtem.getImage() != null)
+                existingItem.setImage(updatedTtem.getImage());
             repository.save(existingItem);
             return true;
         }
