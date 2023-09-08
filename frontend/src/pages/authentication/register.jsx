@@ -47,6 +47,28 @@ function Register() {
     // await getDownloadURL(storageRef)
     //   .then(async (url) => {
     // console.log(url);
+
+    async function uploadProfilePhoto(imageFile) {
+      const storageRef = ref(storage, `user/${Image.name + v4()}`);
+
+      try {
+        await uploadBytes(storageRef, imageFile);
+
+        const url = await getDownloadURL(storageRef);
+
+        console.log("Image uploaded. URL:", url);
+
+        await auth.currentUser.updateProfile({
+          photoURL: url,
+        });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+
+    // Example usage:
+    const imageFile = uploadProfilePhoto(imageFile); // Get the image file from user input, e.g., a file input element.
+
     const data = {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -55,7 +77,8 @@ function Register() {
       password: values.password,
       image: "sd",
     };
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/`, data)
+    await axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/user/`, data)
       .then((res) => {
         console.log(res);
         Swal.fire({
@@ -65,7 +88,8 @@ function Register() {
         }).then((result) => {
           if (result.isConfirmed) {
             const login = { email: values.email, password: values.password };
-            axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
+            axios
+              .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
               .then((res) => {
                 sessionStorage.setItem("user", res.data.user);
                 window.location.href = "/";
