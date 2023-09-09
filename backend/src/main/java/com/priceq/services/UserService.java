@@ -29,17 +29,17 @@ public class UserService {
         if (existingUser == null) {
             return false;
         } else {
-            if(!updatedUser.getFirstName().isEmpty())
+            if(updatedUser.getFirstName() != null)
                 existingUser.setFirstName(updatedUser.getFirstName());
-            if(!updatedUser.getLastName().isEmpty())
+            if(updatedUser.getLastName() != null)
                 existingUser.setFirstName(updatedUser.getLastName());
-            if(!updatedUser.getEmail().isEmpty())
+            if(updatedUser.getEmail() != null)
                 existingUser.setEmail(updatedUser.getEmail());
-            if(!updatedUser.getContactNo().isEmpty())
+            if(updatedUser.getContactNo() != null)
                 existingUser.setContactNo(updatedUser.getContactNo());
-            if(!updatedUser.getImage().isEmpty())
+            if(updatedUser.getImage() != null)
                 existingUser.setImage(updatedUser.getImage());
-            if(!updatedUser.getPassword().isEmpty())
+            if(updatedUser.getPassword() != null)
                 existingUser.setPassword(updatedUser.getPassword());
             repository.save(existingUser);
             return true;
