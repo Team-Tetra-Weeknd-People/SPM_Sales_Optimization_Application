@@ -18,6 +18,7 @@ import "../../styles/randula/itemAdd.css";
 export default function addItems() {
 
     const [isSubmitted, setIsSubmitted] = useState(false);
+
     const [image, setImage] = useState("");
 
     const itemSchema = Yup.object().shape({
@@ -45,7 +46,9 @@ export default function addItems() {
             .required("Required")
             .max(50, "Too Long!")
             .min(5, "Too Short!"),
-        //hsrp as number cant be minus
+        cost: Yup.number()
+            .required("Required")
+            .positive("Cannot be negative"),
         hsrp: Yup.number()
             .required("Required")
             .positive("Cannot be negative"),
@@ -80,6 +83,7 @@ export default function addItems() {
                     brand: values.brand,
                     color: values.color,
                     type: values.type,
+                    cost: values.cost,
                     hsrp: values.hsrp,
                     retailPrice: values.retailPrice,
                     quantity: values.quantity,
@@ -112,10 +116,10 @@ export default function addItems() {
     return (
         <>
             <Navbar />
-            <div className="items-container">
+            <div className="items-add-container">
                 <Row>
                     <Col className="col1" sm={8}>
-                        <div className="item-list">
+                        <div className="item-add-list">
                             <h2>Add New Item</h2>
                             <Formik
                                 initialValues={{
@@ -125,6 +129,7 @@ export default function addItems() {
                                     brand: "12345",
                                     color: "12345",
                                     type: "12345",
+                                    cost: "1234",
                                     hsrp: "12345",
                                     retailPrice: "12345",
                                     quantity: "12345",
@@ -228,6 +233,22 @@ export default function addItems() {
 
                                             {/* break */}
                                             <Col style={{ flex: 1 }}>
+                                                {/* cost */}
+                                                <div className="form-group col-md-6">
+                                                    <label>Cost</label>
+                                                    <Field
+                                                        name="cost"
+                                                        type="text"
+                                                        onInput={(e) => {
+                                                            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                                        }}
+                                                        className={
+                                                            "form-control" +
+                                                            (errors.cost && touched.cost ? " is-invalid" : "")
+                                                        }
+                                                    />
+                                                    <div className="invalid-feedback">{errors.cost}</div>
+                                                </div>
                                                 {/* hsrp */}
                                                 <div className="form-group col-md-6">
                                                     <label>HSRP</label>
@@ -293,7 +314,7 @@ export default function addItems() {
                                                             "form-control" +
                                                             (errors.image && touched.image ? " is-invalid" : "")
                                                         }
-                                                        
+                                                        required
                                                     />
                                                     <div className="invalid-feedback">{errors.image}</div>
                                                 </div>

@@ -22,6 +22,7 @@ public class Item {
     private String brand;
     private String color;
     private String type;
+    private float cost;
     private float msrp;
     private float hsrp;
     private float retailPrice;
