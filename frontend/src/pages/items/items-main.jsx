@@ -17,14 +17,13 @@ import * as Yup from "yup";
 
 
 import { useNavigate } from "react-router-dom";
-import BarLoader from "react-spinners/BarLoader";
 
 import Navbar from "../../components/navbar";
 import "../../styles/sudul/ItemsMain.css";
 
 function ItemsMain() {
   const navigate = useNavigate();
-  const listInnerRef = useRef();
+  // const listInnerRef = useRef();
 
   const [allItems, setAllItems] = useState([]);
   const [item, setItem] = useState({});
