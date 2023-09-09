@@ -126,7 +126,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="humanlyGivenValue"
-                value={addedItem.hsrp}
+                value={"$" +addedItem.hsrp.toFixed(2)}
                 disabled={true}
               />
             </div>
@@ -135,7 +135,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="retailPrice"
-                value={addedItem.retailPrice}
+                value={"$" + addedItem.retailPrice.toFixed(2)}
                 disabled={true}
               />
             </div>
@@ -144,7 +144,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="cost"
-                value={addedItem.cost}
+                value={"$" + addedItem.cost.toFixed(2)}
                 disabled={true}
               />
             </div>
@@ -178,7 +178,7 @@ function MSRPGenerator() {
                 <button onClick={generateMSRP}>Re-Generate MSRP</button>
                 <div className="result-container">
                   <p>Generated MSRP:</p>
-                  <p className="msrp-value">Rs.{addedItem.msrp.toFixed(2)}</p>
+                  <p className="msrp-value">${addedItem.msrp.toFixed(2)}</p>
                   <p className="red-msrp-desc">
                     Most Suitable retail price was generated earlier!
                   </p>
@@ -194,7 +194,7 @@ function MSRPGenerator() {
           <h3>Do you wish to change the retail price of the item?</h3>
           <form onSubmit={changeRetailPrice}>
             <div className="form-group-msrp">
-              <label className="label-retail">New retail price:</label>
+              <label className="label-retail">New retail price($):</label>
               <input
                 type="float"
                 id="newRetailPrice"
@@ -237,19 +237,23 @@ function MSRPGenerator() {
               </p>
               <p className="details-items">
                 <b>Cost: </b>
-                {addedItem.cost}
+                {"$" + addedItem.cost.toFixed(2)}
               </p>
               <p className="details-items">
                 <b>MSRP: </b>
-                {addedItem.msrp}
+                {"$" + addedItem.msrp.toFixed(2)}
               </p>
               <p className="details-items">
                 <b>HSRP: </b>
-                {addedItem.hsrp}
+                {"$" + addedItem.hsrp.toFixed(2)}
               </p>
               <p className="details-items">
                 <b>Available quantity: </b>
                 {addedItem.quantity}
+              </p>
+              <p className="details-items">
+                <b>Retail Price: </b>
+                {"$" + addedItem.retailPrice.toFixed(2)}
               </p>
             </div>
           </div>
