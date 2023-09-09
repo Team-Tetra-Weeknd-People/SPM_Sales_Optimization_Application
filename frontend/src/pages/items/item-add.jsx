@@ -112,10 +112,10 @@ export default function addItems() {
     return (
         <>
             <Navbar />
-            <div className="items-container">
+            <div className="items-add-container">
                 <Row>
                     <Col className="col1" sm={8}>
-                        <div className="item-list">
+                        <div className="item-add-list">
                             <h2>Add New Item</h2>
                             <Formik
                                 initialValues={{
@@ -293,7 +293,7 @@ export default function addItems() {
                                                             "form-control" +
                                                             (errors.image && touched.image ? " is-invalid" : "")
                                                         }
-                                                        
+                                                        required
                                                     />
                                                     <div className="invalid-feedback">{errors.image}</div>
                                                 </div>
