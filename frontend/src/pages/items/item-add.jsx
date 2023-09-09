@@ -46,6 +46,9 @@ export default function addItems() {
             .max(50, "Too Long!")
             .min(5, "Too Short!"),
         //hsrp as number cant be minus
+        cost: Yup.number()
+            .required("Required")
+            .positive("Cannot be negative"),
         hsrp: Yup.number()
             .required("Required")
             .positive("Cannot be negative"),
@@ -80,6 +83,7 @@ export default function addItems() {
                     brand: values.brand,
                     color: values.color,
                     type: values.type,
+                    cost: values.cost,
                     hsrp: values.hsrp,
                     retailPrice: values.retailPrice,
                     quantity: values.quantity,
@@ -125,6 +129,7 @@ export default function addItems() {
                                     brand: "12345",
                                     color: "12345",
                                     type: "12345",
+                                    cost: "1234",
                                     hsrp: "12345",
                                     retailPrice: "12345",
                                     quantity: "12345",
@@ -228,6 +233,22 @@ export default function addItems() {
 
                                             {/* break */}
                                             <Col style={{ flex: 1 }}>
+                                                 {/* cost */}
+                                                 <div className="form-group col-md-6">
+                                                    <label>Cost</label>
+                                                    <Field
+                                                        name="cost"
+                                                        type="text"
+                                                        onInput={(e) => {
+                                                            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                                        }}
+                                                        className={
+                                                            "form-control" +
+                                                            (errors.cost && touched.cost ? " is-invalid" : "")
+                                                        }
+                                                    />
+                                                    <div className="invalid-feedback">{errors.cost}</div>
+                                                </div>
                                                 {/* hsrp */}
                                                 <div className="form-group col-md-6">
                                                     <label>HSRP</label>

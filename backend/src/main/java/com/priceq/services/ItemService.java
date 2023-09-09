@@ -45,6 +45,8 @@ public class ItemService {
                 existingItem.setColor(updatedTtem.getColor());
             if(updatedTtem.getType() != null)
                 existingItem.setType(updatedTtem.getType());
+            if(updatedTtem.getCost() != 0)
+                existingItem.setCost(updatedTtem.getCost());
             if(updatedTtem.getMsrp() != 0)
                 existingItem.setMsrp(updatedTtem.getMsrp());
             if(updatedTtem.getHsrp() != 0)

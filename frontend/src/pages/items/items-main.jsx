@@ -288,7 +288,9 @@ function ItemsMain() {
                   </tr>
                 </tbody>
               </Table>
-              <Button variant="primary">Calculate MSRP</Button>
+              <Button variant="primary" onClick={(()=>{
+                window.location.href = `/msrp-generator/${item.id}`;
+              })}>Calculate MSRP</Button>
             </Col>
           </Row>
         </Modal.Body>

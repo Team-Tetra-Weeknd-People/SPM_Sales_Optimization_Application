@@ -25,7 +25,7 @@ function Login() {
         });
         sessionStorage.setItem("user", res.data.user);
         setTimeout(()=>{
-          window.location.href = "/";
+          window.location.href = "/home";
         },1500);
         
       })
