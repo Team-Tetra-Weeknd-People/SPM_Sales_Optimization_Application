@@ -3,6 +3,7 @@ package com.priceq.controllers;
 import com.priceq.models.Item;
 import com.priceq.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +70,19 @@ public class ItemController {
         if(data.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(data);
         }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+    }
+
+    @GetMapping("/paged/")
+    public ResponseEntity<Page<Item>> getPagedItems(@RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "10") int size) {
+        Page<Item> pagedItems = service.getPaginatedItems(page, size);
+
+        if(!pagedItems.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(pagedItems);
+        }
+        else{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
     }

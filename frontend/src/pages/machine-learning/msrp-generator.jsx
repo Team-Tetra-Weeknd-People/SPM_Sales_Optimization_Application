@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Graph from "../../components/graph";
 import Swal from "sweetalert2";
+import Spinner from 'react-bootstrap/Spinner';
 
 function MSRPGenerator() {
   const { itemID } = useParams();
@@ -12,9 +13,10 @@ function MSRPGenerator() {
     hsrp: 0,
     retailPrice: 0,
     cost: 0,
+    msrp:0,
   });
-  const [msrp, setMsrp] = useState("");
-  const [retailPrice, setRetailPrice] = useState("");
+  const [retailPrice, setRetailPrice] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     getItem();
@@ -27,7 +29,6 @@ function MSRPGenerator() {
       );
       setAddedItem(response.data);
       setRetailPrice(response.data.retailPrice);
-      setMsrp(response.data.msrp);
     } catch (error) {
       console.error("Error fetching items:", error);
     }
@@ -50,6 +51,10 @@ function MSRPGenerator() {
         icon: "success",
         title: "Retail price updated!",
         text: "Retail price updated successfully!",
+      }).then((res)=>{
+        if(res.isConfirmed){
+          window.location.reload();
+        }
       });
     } catch (error) {
       Swal.fire({
@@ -61,32 +66,57 @@ function MSRPGenerator() {
     }
   };
 
-  const generateMSRP = async () => {
-    setMsrp("645");
+  const storeMSRP = async (msrp) =>{
     const data = {
       msrp: msrp,
     };
 
-    await axios
-      .put(`${import.meta.env.VITE_BACKEND_URL}/item/${itemID}`, data)
-      .then(() => {
-        console.log("Item details updated");
+    try {
+      const res = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/item/${itemID}`,
+        data
+      );
+      console.log("Item details updated " + res.data.msrp);
         Swal.fire({
           icon: "success",
           title: "MSRP Generated",
           text: "Most suitable retail price generated successfully!",
-          timer: 1000,
+        }).then((res)=>{
+          if(res.isConfirmed){
+            window.location.reload();
+          }
         });
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Error occured!",
-          timer: 1000,
-        });
-        console.error("Error updating item details:", error);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Error occurred!",
       });
+      console.error("Error updating item details:", error);
+    }
+  }
+  
+  const generateMSRP = async () => {
+    setIsSubmitted(true);
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_ML_FUNCTION_APP_URL}`,
+        addedItem
+      );
+      console.log(res);
+        storeMSRP(res.data.msrp);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "MSRP cannot be generated for this item!\nAI is not trained for this data!",
+      }).then((res)=>{
+        if(res.isConfirmed){
+          window.location.reload();
+        }
+      });
+      console.error("Error :", error);
+    }
   };
 
   return (
@@ -105,7 +135,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="humanlyGivenValue"
-                value={addedItem.hsrp.toFixed(2)}
+                value={"$" +addedItem.hsrp.toFixed(2)}
                 disabled={true}
               />
             </div>
@@ -114,7 +144,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="retailPrice"
-                value={addedItem.retailPrice.toFixed(2)}
+                value={"$" + addedItem.retailPrice.toFixed(2)}
                 disabled={true}
               />
             </div>
@@ -123,23 +153,47 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="cost"
-                value={addedItem.cost.toFixed(2)}
+                value={"$" + addedItem.cost.toFixed(2)}
                 disabled={true}
               />
             </div>
-            {!msrp && <button onClick={generateMSRP}>Generate MSRP</button>}
-            {msrp && (
+            {!addedItem.msrp && (isSubmitted ? (
+              <button disabled="true">
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                &nbsp; Processing...
+              </button>
+            ) : (
+              <button onClick={generateMSRP}>Generate MSRP</button>
+            ))}
+            {addedItem.msrp != 0 && (isSubmitted ? (
+              <button disabled="true">
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                &nbsp; Processing...
+              </button>
+            ) : (
               <>
                 <button onClick={generateMSRP}>Re-Generate MSRP</button>
                 <div className="result-container">
                   <p>Generated MSRP:</p>
-                  <p className="msrp-value">Rs.{msrp}</p>
+                  <p className="msrp-value">${addedItem.msrp.toFixed(2)}</p>
                   <p className="red-msrp-desc">
                     Most Suitable retail price was generated earlier!
                   </p>
                 </div>
               </>
-            )}
+            ))}
           </div>
           <div className="graph-msrp">
             <Graph />
@@ -149,11 +203,11 @@ function MSRPGenerator() {
           <h3>Do you wish to change the retail price of the item?</h3>
           <form onSubmit={changeRetailPrice}>
             <div className="form-group-msrp">
-              <label className="label-retail">New retail price:</label>
+              <label className="label-retail">New retail price($):</label>
               <input
                 type="float"
                 id="newRetailPrice"
-                value={retailPrice}
+                value={retailPrice.toFixed(2)}
                 onChange={(e) => {
                   setRetailPrice(e.target.value);
                 }}
@@ -167,26 +221,52 @@ function MSRPGenerator() {
         <div className="msrp-item-details-container">
           <h2>Item Details</h2>
           <div className="msrp-item-details">
-          <div className="msrp-item-details-left">
-            <h3>{addedItem.name}</h3>
-            <img
-            src={addedItem.image}/>
-            <br/>
-            <img
-            src={addedItem.barcode}/>
+            <div className="msrp-item-details-left">
+              <h3>{addedItem.name}</h3>
+              <img src={addedItem.image} />
+              <br />
+              <img src={addedItem.barcode} />
+            </div>
+            <div className="msrp-item-details-right">
+              <p className="details-items">
+                <b>Item Code: </b>
+                {addedItem.itemCode}
+              </p>
+              <p className="details-items">
+                <b>Brand: </b>
+                {addedItem.brand}
+              </p>
+              <p className="details-items">
+                <b>Color: </b>
+                {addedItem.color}
+              </p>
+              <p className="details-items">
+                <b>Type: </b>
+                {addedItem.type}
+              </p>
+              <p className="details-items">
+                <b>Cost: </b>
+                {"$" + addedItem.cost.toFixed(2)}
+              </p>
+              <p className="details-items">
+                <b>MSRP: </b>
+                {"$" + addedItem.msrp.toFixed(2)}
+              </p>
+              <p className="details-items">
+                <b>HSRP: </b>
+                {"$" + addedItem.hsrp.toFixed(2)}
+              </p>
+              <p className="details-items">
+                <b>Available quantity: </b>
+                {addedItem.quantity}
+              </p>
+              <p className="details-items">
+                <b>Retail Price: </b>
+                {"$" + addedItem.retailPrice.toFixed(2)}
+              </p>
+            </div>
           </div>
-          <div className="msrp-item-details-right">
-            <p className="details-items"><b>Item Code: </b>{addedItem.itemCode}</p>
-            <p className="details-items"><b>Brand: </b>{addedItem.brand}</p>
-            <p className="details-items"><b>Color: </b>{addedItem.color}</p>
-            <p className="details-items"><b>Type: </b>{addedItem.type}</p>
-            <p className="details-items"><b>Cost: </b>{addedItem.cost}</p>
-            <p className="details-items"><b>MSRP: </b>{addedItem.msrp}</p>
-            <p className="details-items"><b>HSRP: </b>{addedItem.hsrp}</p>
-            <p className="details-items"><b>Available quantity: </b>{addedItem.quantity}</p>
-          </div>
-          </div>
-      </div>
+        </div>
       </div>
     </>
   );
