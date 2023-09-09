@@ -69,7 +69,7 @@ export default function Navbar() {
               <Nav.Link as={Link} to="/dashboard" className="navlink">
                 Dashboard
               </Nav.Link>
-              <Nav.Link as={Link} to="/brands" className="navlink">
+              <Nav.Link as={Link} to="/cashier" className="navlink">
                 Cashier
               </Nav.Link>
               <Nav.Link as={Link} to="/items-main" className="navlink">

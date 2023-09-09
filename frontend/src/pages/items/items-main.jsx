@@ -129,11 +129,11 @@ function ItemsMain() {
     brand: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
-      .min(4, "Too Short!"),
+      .min(3, "Too Short!"),
     color: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
-      .min(5, "Too Short!"),
+      .min(3, "Too Short!"),
     type: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
@@ -660,7 +660,7 @@ function ItemsMain() {
       </Modal>
 
       <Navbar />
-      <div className="items-container">
+      <div className="items-container-main">
         <Row>
           <Col sm={5}>
             <Button
@@ -695,8 +695,8 @@ function ItemsMain() {
               <tr>
                 <th>Name</th>
                 <th>Item Code</th>
-                <th>Item Name</th>
                 <th>Item Brand</th>
+                <th>Item Type</th>
                 <th>Available Quantity</th>
                 <th>Retail Price</th>
                 <th>View Item</th>
@@ -730,8 +730,8 @@ function ItemsMain() {
                       <tr key={item.id}>
                         <td>{item.name}</td>
                         <td>{item.itemCode}</td>
-                        <td>{item.name}</td>
                         <td>{item.brand}</td>
+                        <td>{item.type}</td>
                         <td>{item.quantity}</td>
                         <td>$ {item.retailPrice}</td>
                         <td>

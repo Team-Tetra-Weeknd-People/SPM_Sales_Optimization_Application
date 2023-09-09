@@ -32,7 +32,7 @@ export default function barcodegenerator() {
 
   async function handleBarcodeSaveAndToMSRPGenerator() {
     await handleBarcodeSave().then(() => {
-        window.location.href = `/msrp-generator/${itemID}`;
+      window.location.href = `/msrp-generator/${itemID}`;
     });
   }
 
@@ -97,7 +97,7 @@ export default function barcodegenerator() {
   return (
     <>
       <Navbar />
-      <div className="items-container barcodeContainer">
+      <div className="items-add-container barcodeContainer">
         <Row>
           <Col sm={4}>
             <h2>Barcode Generator</h2>
