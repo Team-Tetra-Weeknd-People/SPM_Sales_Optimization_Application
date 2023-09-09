@@ -25,10 +25,7 @@
 }
 
 .userImg {
-  width: 80%;
-  height: 80%;
-  border: 1px solid black;
-  /* margin-top: 10px; */
+  max-width: 50%;
 }
 
 .colmn2 {

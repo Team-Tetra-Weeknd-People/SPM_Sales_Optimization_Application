@@ -66,7 +66,7 @@ export default function Navbar() {
               </Navbarx.Brand>
             </LinkContainer>
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/categories" className="navlink">
+              <Nav.Link as={Link} to="/dashboard" className="navlink">
                 Dashboard
               </Nav.Link>
               <Nav.Link as={Link} to="/brands" className="navlink">

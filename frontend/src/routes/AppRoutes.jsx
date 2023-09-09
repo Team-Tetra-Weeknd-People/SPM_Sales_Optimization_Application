@@ -10,6 +10,7 @@ import DataFeeder from "../pages/machine-learning/data-feeder";
 import MSRPGenerator from "../pages/machine-learning/msrp-generator";
 import Reviews from "../pages/reviews/reviews";
 import Profile from "../pages/profile/profile";
+import Dashboard from "../pages/dashboard/dashboard"
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/d" element={<DataFeeder />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </>
