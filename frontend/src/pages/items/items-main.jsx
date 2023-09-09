@@ -660,7 +660,7 @@ function ItemsMain() {
       </Modal>
 
       <Navbar />
-      <div className="items-container">
+      <div className="items-container-main">
         <Row>
           <Col sm={5}>
             <Button
