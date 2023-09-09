@@ -3,6 +3,8 @@ package com.priceq.services;
 import com.priceq.models.Item;
 import com.priceq.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,6 +64,11 @@ public class ItemService {
 
     public List<Item> getAll(){
         return repository.findAll();
+    }
+
+    public Page<Item> getPaginatedItems(int page, int size){
+        PageRequest pageRequest = PageRequest.of(page , size);
+        return repository.findAll(pageRequest);
     }
 
     public Optional<Item> getOne(String id) {
