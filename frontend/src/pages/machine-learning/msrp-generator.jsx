@@ -106,6 +106,15 @@ function MSRPGenerator() {
       console.log(res);
         storeMSRP(res.data.msrp);
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "MSRP cannot be generated for this item!\nAI is not trained for this data!",
+      }).then((res)=>{
+        if(res.isConfirmed){
+          window.location.reload();
+        }
+      });
       console.error("Error :", error);
     }
   };
