@@ -19,24 +19,24 @@ import * as Yup from 'yup';
 
 export default function Navbar() {
 
-//   const logo = "https://firebasestorage.googleapis.com/v0/b/beheth-kade-6ds3w9c.appspot.com/o/asserts%2Flogo%20(transparent).png?alt=media&token=78d6bc1e-59bb-461c-b32e-cd278ebab61a";
+  //   const logo = "https://firebasestorage.googleapis.com/v0/b/beheth-kade-6ds3w9c.appspot.com/o/asserts%2Flogo%20(transparent).png?alt=media&token=78d6bc1e-59bb-461c-b32e-cd278ebab61a";
 
   document.body.style.overflow = "visible";
 
   function logout() {
-      sessionStorage.clear();
-      window.location.href = "/";
+    sessionStorage.clear();
+    window.location.href = "/";
 
   }
 
   function view() {
-      return (
-        <div>
-          <Button className="whitebtn" onClick={logout}>
-            Logout
-          </Button>
-        </div>
-      );
+    return (
+      <div>
+        <Button className="whitebtn" onClick={logout}>
+          Logout
+        </Button>
+      </div>
+    );
   }
 
   return (
@@ -59,7 +59,7 @@ export default function Navbar() {
             </LinkContainer>
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/categories" className="navlink">
-              Dashboard
+                Dashboard
               </Nav.Link>
               <Nav.Link as={Link} to="/brands" className="navlink">
                 Cashier
@@ -67,8 +67,8 @@ export default function Navbar() {
               <Nav.Link as={Link} to="/items-main" className="navlink">
                 Items
               </Nav.Link>
-              <Nav.Link as={Link} to="/ContactUS" className="navlink">
-              Reviews
+              <Nav.Link as={Link} to="/reviews" className="navlink">
+                Reviews
               </Nav.Link>
             </Nav>
             {view()}
