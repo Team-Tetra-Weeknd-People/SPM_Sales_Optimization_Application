@@ -8,6 +8,7 @@ import ItemAdd from '../pages/items/item-add';
 import BarcodeGenerator from '../pages/items/barcode-generator';
 import DataFeeder from "../pages/machine-learning/data-feeder";
 import MSRPGenerator from "../pages/machine-learning/msrp-generator";
+import Cashier from "../pages/Cashier/cashier-main";
 
 export default function App() {
     return (
@@ -22,6 +23,7 @@ export default function App() {
                     <Route path="/barcode-generator/:itemID" element={<BarcodeGenerator />} />
                     <Route path="/msrp-generator/:itemID" element={<MSRPGenerator />} />
                     <Route path="/d" element={<DataFeeder />} />
+                    <Route path="/cashier" element={<Cashier />} />
                 </Routes>
             </Router>
         </>
