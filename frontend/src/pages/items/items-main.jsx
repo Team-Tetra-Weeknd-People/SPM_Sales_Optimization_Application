@@ -129,7 +129,7 @@ function ItemsMain() {
     brand: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
-      .min(5, "Too Short!"),
+      .min(4, "Too Short!"),
     color: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
@@ -286,10 +286,10 @@ function ItemsMain() {
               <Table striped>
                 <tbody>
                   <tr>
-                    <td>HSRP </td> <td>Rs.{item.hsrp}</td>
+                    <td>HSRP </td> <td>$ {item.hsrp}</td>
                   </tr>
                   <tr>
-                    <td>Retail Price</td> <td>Rs.{item.retailPrice}</td>
+                    <td>Retail Price</td> <td>$ {item.retailPrice}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -334,13 +334,13 @@ function ItemsMain() {
                       {item.msrp === 0 ? (
                         <span>Not Calculated Yet ...</span>
                       ) : (
-                        <span>Rs.{item.msrp}</span>
+                        <span>$ {item.msrp}</span>
                       )}
                     </td>
                   </tr>
                   <tr>
                     <td>Manufactuere Cost</td>
-                    <td>Rs.{item.cost}</td>
+                    <td>$ {item.cost}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -733,7 +733,7 @@ function ItemsMain() {
                         <td>{item.name}</td>
                         <td>{item.brand}</td>
                         <td>{item.quantity}</td>
-                        <td>{item.retailPrice}</td>
+                        <td>$ {item.retailPrice}</td>
                         <td>
                           <Button variant="primary" onClick={() => { handleView(item) }}>View</Button>
                         </td>

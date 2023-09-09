@@ -13,7 +13,7 @@ function MSRPGenerator() {
     hsrp: 0,
     retailPrice: 0,
     cost: 0,
-    msrp:0,
+    msrp: 0,
   });
   const [retailPrice, setRetailPrice] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -51,8 +51,8 @@ function MSRPGenerator() {
         icon: "success",
         title: "Retail price updated!",
         text: "Retail price updated successfully!",
-      }).then((res)=>{
-        if(res.isConfirmed){
+      }).then((res) => {
+        if (res.isConfirmed) {
           window.location.reload();
         }
       });
@@ -66,7 +66,7 @@ function MSRPGenerator() {
     }
   };
 
-  const storeMSRP = async (msrp) =>{
+  const storeMSRP = async (msrp) => {
     const data = {
       msrp: msrp,
     };
@@ -77,15 +77,15 @@ function MSRPGenerator() {
         data
       );
       console.log("Item details updated " + res.data.msrp);
-        Swal.fire({
-          icon: "success",
-          title: "MSRP Generated",
-          text: "Most suitable retail price generated successfully!",
-        }).then((res)=>{
-          if(res.isConfirmed){
-            window.location.reload();
-          }
-        });
+      Swal.fire({
+        icon: "success",
+        title: "MSRP Generated",
+        text: "Most suitable retail price generated successfully!",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          window.location.reload();
+        }
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -95,7 +95,7 @@ function MSRPGenerator() {
       console.error("Error updating item details:", error);
     }
   }
-  
+
   const generateMSRP = async () => {
     setIsSubmitted(true);
     try {
@@ -104,7 +104,7 @@ function MSRPGenerator() {
         addedItem
       );
       console.log(res);
-        storeMSRP(res.data.msrp);
+      storeMSRP(res.data.msrp);
     } catch (error) {
       console.error("Error :", error);
     }
@@ -149,7 +149,7 @@ function MSRPGenerator() {
               />
             </div>
             {!addedItem.msrp && (isSubmitted ? (
-              <button disabled="true">
+              <button disabled>
                 <Spinner
                   as="span"
                   animation="grow"
@@ -163,7 +163,7 @@ function MSRPGenerator() {
               <button onClick={generateMSRP}>Generate MSRP</button>
             ))}
             {addedItem.msrp != 0 && (isSubmitted ? (
-              <button disabled="true">
+              <button disabled>
                 <Spinner
                   as="span"
                   animation="grow"
