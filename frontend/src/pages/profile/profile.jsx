@@ -411,11 +411,10 @@ export default function profile() {
               src={user.image}
               className="userImg"
               alt="user image"
-              style={{ maxHeight: "15rem" }}
             />
           </Col>
           <Col className="colmn2" sm={6}>
-            <Card style={{ width: "40.5rem" }}>
+            <Card style={{ width: "36rem" }}>
               <Card.Body>
                 <Card.Title>
                   <b>User Details</b>

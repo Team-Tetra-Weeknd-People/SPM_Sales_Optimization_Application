@@ -37,7 +37,7 @@ export default function addItems() {
         brand: Yup.string()
             .required("Required")
             .max(50, "Too Long!")
-            .min(5, "Too Short!"),
+            .min(4, "Too Short!"),
         color: Yup.string()
             .required("Required")
             .max(50, "Too Long!")

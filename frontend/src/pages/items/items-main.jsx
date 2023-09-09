@@ -14,6 +14,7 @@ import { v4 } from "uuid";
 import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import BarLoader from "react-spinners/BarLoader";
 
 import { useNavigate } from "react-router-dom";
 
@@ -128,7 +129,7 @@ function ItemsMain() {
     brand: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
-      .min(5, "Too Short!"),
+      .min(4, "Too Short!"),
     color: Yup.string()
       .required("Required")
       .max(50, "Too Long!")
@@ -285,10 +286,10 @@ function ItemsMain() {
               <Table striped>
                 <tbody>
                   <tr>
-                    <td>HSRP </td> <td>Rs.{item.hsrp}</td>
+                    <td>HSRP </td> <td>$ {item.hsrp}</td>
                   </tr>
                   <tr>
-                    <td>Retail Price</td> <td>Rs.{item.retailPrice}</td>
+                    <td>Retail Price</td> <td>$ {item.retailPrice}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -333,13 +334,13 @@ function ItemsMain() {
                       {item.msrp === 0 ? (
                         <span>Not Calculated Yet ...</span>
                       ) : (
-                        <span>Rs.{item.msrp}</span>
+                        <span>$ {item.msrp}</span>
                       )}
                     </td>
                   </tr>
                   <tr>
                     <td>Manufactuere Cost</td>
-                    <td>Rs.{item.cost}</td>
+                    <td>$ {item.cost}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -704,61 +705,51 @@ function ItemsMain() {
               </tr>
             </thead>
             <tbody>
-              {allItems
-                .filter((val) => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    val.itemCode
-                      .toLowerCase()
-                      .includes(searchTerm.toLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
-                .map((item) => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td>{item.itemCode}</td>
-                      <td>{item.name}</td>
-                      <td>{item.brand}</td>
-                      <td>{item.quantity}</td>
-                      <td>{item.retailPrice}</td>
-                      <td>
-                        <Button
-                          variant="primary"
-                          onClick={() => {
-                            handleView(item);
-                          }}
-                        >
-                          View
-                        </Button>
-                      </td>
-                      <td>
-                        <Button
-                          variant="warning"
-                          onClick={() => {
-                            handleEdit(item);
-                          }}
-                        >
-                          Edit
-                        </Button>
-                      </td>
-                      <td>
-                        <Button
-                          variant="danger"
-                          onClick={() => {
-                            handleDelete(item.id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
+              {!allItems.length ? (
+                <>
+                  <tr>
+                    <td colSpan={9}>
+                      <BarLoader color="#36d7b7" width={1100} />
+                    </td>
+
+                  </tr>
+                </>
+              ) : (
+                <>
+                  {allItems.filter((val) => {
+                    if (searchTerm === "") {
+                      return val;
+                    } else if (
+                      val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      val.itemCode.toLowerCase().includes(searchTerm.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  }).map((item) => {
+                    return (
+                      <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.itemCode}</td>
+                        <td>{item.name}</td>
+                        <td>{item.brand}</td>
+                        <td>{item.quantity}</td>
+                        <td>$ {item.retailPrice}</td>
+                        <td>
+                          <Button variant="primary" onClick={() => { handleView(item) }}>View</Button>
+                        </td>
+                        <td>
+                          <Button variant="warning" onClick={() => { handleEdit(item) }}>Edit</Button>
+                        </td>
+                        <td>
+                          <Button variant="danger" onClick={() => { handleDelete(item.id) }}>Delete</Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              )
+              }
+
             </tbody>
           </Table>
         </div>
