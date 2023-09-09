@@ -7,9 +7,9 @@ import Modal from "react-bootstrap/Modal";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Swal from 'sweetalert2';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import Swal from "sweetalert2";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 // import { storage } from "../../firebase";
 // import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 // import { v4 } from "uuid";
@@ -18,7 +18,6 @@ import * as Yup from 'yup';
 // import SellerAuth from "../../services/sellerAuth.service";
 
 export default function Navbar() {
-
   //   const logo = "https://firebasestorage.googleapis.com/v0/b/beheth-kade-6ds3w9c.appspot.com/o/asserts%2Flogo%20(transparent).png?alt=media&token=78d6bc1e-59bb-461c-b32e-cd278ebab61a";
 
   document.body.style.overflow = "visible";
@@ -26,21 +25,30 @@ export default function Navbar() {
   function logout() {
     sessionStorage.clear();
     window.location.href = "/";
+  }
 
+  function profile() {
+    window.location.href = "/profile";
   }
 
   function view() {
     return (
-      <div>
-        <Button className="whitebtn" onClick={logout}>
-          Logout
-        </Button>
-      </div>
+      <>
+        <div>
+          <Button className="whitebtn" onClick={profile}>
+            Profile
+          </Button>
+        </div>
+        <div>
+          <Button className="whitebtn" onClick={logout}>
+            Logout
+          </Button>
+        </div>
+      </>
     );
   }
 
   return (
-
     <>
       {/* Navbar component */}
       <Navbarx className="NavbarCont" expand="lg">
@@ -72,7 +80,6 @@ export default function Navbar() {
               </Nav.Link>
             </Nav>
             {view()}
-
           </Navbarx.Collapse>
         </Container>
       </Navbarx>

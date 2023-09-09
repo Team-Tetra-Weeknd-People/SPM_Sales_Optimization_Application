@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import $ from 'jquery';
-import Spinner from 'react-bootstrap/Spinner';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import $ from "jquery";
+import Spinner from "react-bootstrap/Spinner";
 import { storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
@@ -45,7 +45,7 @@ function ItemsMain() {
   const handleView = (item) => {
     setItem(item);
     handleShow();
-  }
+  };
 
   const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = () => setShowEdit(true);
@@ -53,7 +53,7 @@ function ItemsMain() {
   const handleEdit = (item) => {
     setItem(item);
     handleShowEdit();
-  }
+  };
 
   useEffect(() => {
     getAllItems();
@@ -69,7 +69,6 @@ function ItemsMain() {
       console.error("Error fetching items:", error);
     }
   };
-
 
   // const onScroll = () => {
   //   if (listInnerRef.current) {
@@ -140,18 +139,12 @@ function ItemsMain() {
       .max(50, "Too Long!")
       .min(5, "Too Short!"),
     //hsrp as number cant be minus
-    cost: Yup.number()
-      .required("Required")
-      .positive("Cannot be negative"),
-    hsrp: Yup.number()
-      .required("Required")
-      .positive("Cannot be negative"),
+    cost: Yup.number().required("Required").positive("Cannot be negative"),
+    hsrp: Yup.number().required("Required").positive("Cannot be negative"),
     retailPrice: Yup.number()
       .required("Required")
       .positive("Cannot be negative"),
-    quantity: Yup.number()
-      .required("Required")
-      .positive("Cannot be negative"),
+    quantity: Yup.number().required("Required").positive("Cannot be negative"),
   });
 
   async function updateItem(values) {
@@ -168,47 +161,47 @@ function ItemsMain() {
       });
 
     //get image url and create item
-    await getDownloadURL(storageRef)
-      .then(async (url) => {
-        console.log(url);
-        const data = {
-          itemCode: values.itemCode,
-          name: values.name,
-          description: values.description,
-          brand: values.brand,
-          color: values.color,
-          type: values.type,
-          cost: values.cost,
-          hsrp: values.hsrp,
-          retailPrice: values.retailPrice,
-          quantity: values.quantity,
-          image: url,
-        };
-        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/item/${item.id}`, data)
-          .then((res) => {
-            console.log(res.data);
-            sessionStorage.setItem('itemJustAdded', data);
-            Swal.fire({
-              icon: "success",
-              title: "Item Updated Successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            }).then(() => {
-              handleCloseEdit();
-              setItem({});
-              getAllItems();
-              setIsSubmitted(false);
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
+    await getDownloadURL(storageRef).then(async (url) => {
+      console.log(url);
+      const data = {
+        itemCode: values.itemCode,
+        name: values.name,
+        description: values.description,
+        brand: values.brand,
+        color: values.color,
+        type: values.type,
+        cost: values.cost,
+        hsrp: values.hsrp,
+        retailPrice: values.retailPrice,
+        quantity: values.quantity,
+        image: url,
+      };
+      await axios
+        .put(`${import.meta.env.VITE_BACKEND_URL}/item/${item.id}`, data)
+        .then((res) => {
+          console.log(res.data);
+          sessionStorage.setItem("itemJustAdded", data);
+          Swal.fire({
+            icon: "success",
+            title: "Item Updated Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            handleCloseEdit();
+            setItem({});
+            getAllItems();
+            setIsSubmitted(false);
           });
-      })
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        });
+    });
   }
 
   async function handleDelete(id) {
@@ -219,7 +212,8 @@ function ItemsMain() {
       showCancelButton: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/item/${id}`)
+        await axios
+          .delete(`${import.meta.env.VITE_BACKEND_URL}/item/${id}`)
           .then((res) => {
             console.log(res.data);
             Swal.fire({
@@ -242,7 +236,6 @@ function ItemsMain() {
       }
     });
   }
-
 
   return (
     <>
@@ -282,15 +275,14 @@ function ItemsMain() {
                   </tr>
                 </tbody>
               </Table>
-              <Card style={{ width: '18rem', minHeight: '10rem' }}>
+              <Card style={{ width: "18rem", minHeight: "10rem" }}>
                 <Card.Body>
                   <Card.Title>Description</Card.Title>
-                  <Card.Text>
-                    {item.description}
-                  </Card.Text>
+                  <Card.Text>{item.description}</Card.Text>
                 </Card.Body>
               </Card>
-              <br /><br />
+              <br />
+              <br />
               <Table striped>
                 <tbody>
                   <tr>
@@ -304,39 +296,54 @@ function ItemsMain() {
             </Col>
 
             <Col>
-              <img src={item.image} alt="item image" style={{ maxHeight: '15rem' }} />
-
-              <br /><br />
+              <img
+                src={item.image}
+                alt="item image"
+                style={{ maxHeight: "15rem" }}
+              />
+              <br />
+              <br />
               <h5>Bar Code</h5>
-              <img src={item.barcode} alt="item image" style={{ maxWidth: '25rem' }} />
-              <br /><br />
-              <Button variant="primary" target="_blank" href={item.barcode}>View Barcode</Button>
+              <img
+                src={item.barcode}
+                alt="item image"
+                style={{ maxWidth: "25rem" }}
+              />
+              <br />
+              <br />
+              <Button variant="primary" target="_blank" href={item.barcode}>
+                View Barcode
+              </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button variant="primary" onClick={(() => {
-                window.location.href = `/msrp-generator/${item.id}`;
-              })}>Calculate MSRP</Button>
-              <br /><br /><br />
+              <Button
+                variant="primary"
+                onClick={() => {
+                  window.location.href = `/msrp-generator/${item.id}`;
+                }}
+              >
+                Calculate MSRP
+              </Button>
+              <br />
+              <br />
+              <br />
               <Table striped>
                 <tbody>
                   <tr>
                     <td>MSRP</td>
-                    <td>{item.msrp === 0 ? (
-                      <span>Not Calculated Yet ...</span>
-                    ) : (
-                      <span>Rs.{item.msrp}</span>
-                    )
-                    }</td>
-
+                    <td>
+                      {item.msrp === 0 ? (
+                        <span>Not Calculated Yet ...</span>
+                      ) : (
+                        <span>Rs.{item.msrp}</span>
+                      )}
+                    </td>
                   </tr>
                   <tr>
                     <td>Manufactuere Cost</td>
-                    <td>
-                      Rs.{item.cost}
-                    </td>
+                    <td>Rs.{item.cost}</td>
                   </tr>
                 </tbody>
               </Table>
-
             </Col>
           </Row>
         </Modal.Body>
@@ -345,7 +352,7 @@ function ItemsMain() {
             Close
           </Button>
         </Modal.Footer>
-      </Modal >
+      </Modal>
 
       {/* item edit modal */}
       <Modal
@@ -375,7 +382,6 @@ function ItemsMain() {
                     retailPrice: item.retailPrice,
                     quantity: item.quantity,
                   }}
-
                   validationSchema={itemSchema}
                   onSubmit={(values) => {
                     setIsSubmitted(true);
@@ -383,7 +389,6 @@ function ItemsMain() {
                     updateItem(values);
                   }}
                 >
-
                   {({ errors, touched }) => (
                     <Form>
                       <Row style={{ display: "flex" }}>
@@ -396,10 +401,14 @@ function ItemsMain() {
                               type="text"
                               className={
                                 "form-control" +
-                                (errors.itemCode && touched.itemCode ? " is-invalid" : "")
+                                (errors.itemCode && touched.itemCode
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.itemCode}</div>
+                            <div className="invalid-feedback">
+                              {errors.itemCode}
+                            </div>
                           </div>
 
                           {/* name */}
@@ -410,10 +419,14 @@ function ItemsMain() {
                               type="text"
                               className={
                                 "form-control" +
-                                (errors.name && touched.name ? " is-invalid" : "")
+                                (errors.name && touched.name
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.name}</div>
+                            <div className="invalid-feedback">
+                              {errors.name}
+                            </div>
                           </div>
 
                           {/* description */}
@@ -424,10 +437,14 @@ function ItemsMain() {
                               type="text"
                               className={
                                 "form-control" +
-                                (errors.description && touched.description ? " is-invalid" : "")
+                                (errors.description && touched.description
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.description}</div>
+                            <div className="invalid-feedback">
+                              {errors.description}
+                            </div>
                           </div>
 
                           {/* brand */}
@@ -438,10 +455,14 @@ function ItemsMain() {
                               type="text"
                               className={
                                 "form-control" +
-                                (errors.brand && touched.brand ? " is-invalid" : "")
+                                (errors.brand && touched.brand
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.brand}</div>
+                            <div className="invalid-feedback">
+                              {errors.brand}
+                            </div>
                           </div>
 
                           {/* color */}
@@ -452,10 +473,14 @@ function ItemsMain() {
                               type="text"
                               className={
                                 "form-control" +
-                                (errors.color && touched.color ? " is-invalid" : "")
+                                (errors.color && touched.color
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.color}</div>
+                            <div className="invalid-feedback">
+                              {errors.color}
+                            </div>
                           </div>
 
                           {/* type */}
@@ -466,17 +491,19 @@ function ItemsMain() {
                               type="text"
                               className={
                                 "form-control" +
-                                (errors.type && touched.type ? " is-invalid" : "")
+                                (errors.type && touched.type
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.type}</div>
+                            <div className="invalid-feedback">
+                              {errors.type}
+                            </div>
                           </div>
-
                         </Col>
 
                         {/* break */}
                         <Col style={{ flex: 1 }}>
-
                           {/* cost */}
                           <div className="form-group col-md-6">
                             <label>Cost</label>
@@ -484,14 +511,21 @@ function ItemsMain() {
                               name="cost"
                               type="text"
                               onInput={(e) => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                e.target.value = e.target.value.replace(
+                                  /[^0-9]/g,
+                                  ""
+                                );
                               }}
                               className={
                                 "form-control" +
-                                (errors.cost && touched.cost ? " is-invalid" : "")
+                                (errors.cost && touched.cost
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.cost}</div>
+                            <div className="invalid-feedback">
+                              {errors.cost}
+                            </div>
                           </div>
 
                           {/* hsrp */}
@@ -501,14 +535,21 @@ function ItemsMain() {
                               name="hsrp"
                               type="text"
                               onInput={(e) => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                e.target.value = e.target.value.replace(
+                                  /[^0-9]/g,
+                                  ""
+                                );
                               }}
                               className={
                                 "form-control" +
-                                (errors.hsrp && touched.hsrp ? " is-invalid" : "")
+                                (errors.hsrp && touched.hsrp
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.hsrp}</div>
+                            <div className="invalid-feedback">
+                              {errors.hsrp}
+                            </div>
                           </div>
 
                           {/* retailPrice */}
@@ -518,14 +559,21 @@ function ItemsMain() {
                               name="retailPrice"
                               type="text"
                               onInput={(e) => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                e.target.value = e.target.value.replace(
+                                  /[^0-9]/g,
+                                  ""
+                                );
                               }}
                               className={
                                 "form-control" +
-                                (errors.retailPrice && touched.retailPrice ? " is-invalid" : "")
+                                (errors.retailPrice && touched.retailPrice
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.retailPrice}</div>
+                            <div className="invalid-feedback">
+                              {errors.retailPrice}
+                            </div>
                           </div>
 
                           {/* quantity */}
@@ -535,14 +583,21 @@ function ItemsMain() {
                               name="quantity"
                               type="text"
                               onInput={(e) => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                e.target.value = e.target.value.replace(
+                                  /[^0-9]/g,
+                                  ""
+                                );
                               }}
                               className={
                                 "form-control" +
-                                (errors.quantity && touched.quantity ? " is-invalid" : "")
+                                (errors.quantity && touched.quantity
+                                  ? " is-invalid"
+                                  : "")
                               }
                             />
-                            <div className="invalid-feedback">{errors.quantity}</div>
+                            <div className="invalid-feedback">
+                              {errors.quantity}
+                            </div>
                           </div>
 
                           {/* image */}
@@ -557,12 +612,15 @@ function ItemsMain() {
                               }}
                               className={
                                 "form-control" +
-                                (errors.image && touched.image ? " is-invalid" : "")
+                                (errors.image && touched.image
+                                  ? " is-invalid"
+                                  : "")
                               }
                               required
-
                             />
-                            <div className="invalid-feedback">{errors.image}</div>
+                            <div className="invalid-feedback">
+                              {errors.image}
+                            </div>
                           </div>
 
                           <br />
@@ -591,7 +649,6 @@ function ItemsMain() {
                 <br />
                 <br />
               </div>
-
             </Col>
           </Row>
         </Modal.Body>
@@ -600,14 +657,19 @@ function ItemsMain() {
             Close
           </Button>
         </Modal.Footer>
-      </Modal >
-
+      </Modal>
 
       <Navbar />
       <div className="items-container">
         <Row>
           <Col sm={5}>
-            <Button onClick={() => { navigate("/item-add") }}>Add New Item</Button>
+            <Button
+              onClick={() => {
+                navigate("/item-add");
+              }}
+            >
+              Add New Item
+            </Button>
           </Col>
           <Col sm={3}>
             <h2>All Items</h2>
@@ -615,9 +677,13 @@ function ItemsMain() {
           <Col sm={4}>
             {/* search bar */}
             <div className="search">
-              <input type="text" placeholder="Search Items..." onChange={(event) => {
-                setSearchTerm(event.target.value);
-              }} />
+              <input
+                type="text"
+                placeholder="Search Items..."
+                onChange={(event) => {
+                  setSearchTerm(event.target.value);
+                }}
+              />
             </div>
           </Col>
         </Row>
@@ -687,7 +753,7 @@ function ItemsMain() {
             </tbody>
           </Table>
         </div>
-      </div >
+      </div>
     </>
   );
 }
