@@ -8,6 +8,7 @@ import ItemAdd from "../pages/items/item-add";
 import BarcodeGenerator from "../pages/items/barcode-generator";
 import DataFeeder from "../pages/machine-learning/data-feeder";
 import MSRPGenerator from "../pages/machine-learning/msrp-generator";
+import Cashier from "../pages/Cashier/cashier-main";
 import Reviews from "../pages/reviews/reviews";
 import Profile from "../pages/profile/profile";
 import Dashboard from "../pages/dashboard/dashboard"
