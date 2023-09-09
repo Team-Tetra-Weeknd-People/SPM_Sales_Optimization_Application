@@ -13,8 +13,8 @@ function MSRPGenerator() {
     retailPrice: 0,
     cost: 0,
   });
-  const [msrp, setMsrp] = useState("");
-  const [retailPrice, setRetailPrice] = useState("");
+  const [msrp, setMsrp] = useState(0);
+  const [retailPrice, setRetailPrice] = useState(0);
 
   useEffect(() => {
     getItem();
@@ -128,7 +128,7 @@ function MSRPGenerator() {
               />
             </div>
             {!msrp && <button onClick={generateMSRP}>Generate MSRP</button>}
-            {msrp && (
+            {(msrp != 0) && (
               <>
                 <button onClick={generateMSRP}>Re-Generate MSRP</button>
                 <div className="result-container">
