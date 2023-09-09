@@ -21,7 +21,6 @@ export default function barcodegenerator() {
   const barcodeRef = useRef(null);
   const { itemID } = useParams();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const itemJustAdded = sessionStorage.getItem('itemJustAdded');
 
   const generateBarcodeImage = () => {
     if (barcodeRef.current) {
@@ -33,14 +32,12 @@ export default function barcodegenerator() {
 
   async function handleBarcodeSaveAndToMSRPGenerator() {
     await handleBarcodeSave().then(() => {
-        sessionStorage.setItem('itemJustAdded',itemJustAdded);
         window.location.href = `/msrp-generator/${itemID}`;
     });
   }
 
   async function handleBarcodeSave() {
     setIsSubmitted(true);
-    sessionStorage.removeItem('itemJustAdded');
     //get barcode as an image
     const barcodeImage = await generateBarcodeImage();
 
