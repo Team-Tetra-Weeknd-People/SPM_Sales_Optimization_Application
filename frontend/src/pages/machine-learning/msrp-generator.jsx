@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Graph from "../../components/graph";
 import Swal from "sweetalert2";
+import Spinner from 'react-bootstrap/Spinner';
 
 function MSRPGenerator() {
   const { itemID } = useParams();
@@ -15,6 +16,7 @@ function MSRPGenerator() {
     msrp:0,
   });
   const [retailPrice, setRetailPrice] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     getItem();
@@ -95,6 +97,7 @@ function MSRPGenerator() {
   }
   
   const generateMSRP = async () => {
+    setIsSubmitted(true);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_ML_FUNCTION_APP_URL}`,
@@ -145,8 +148,32 @@ function MSRPGenerator() {
                 disabled={true}
               />
             </div>
-            {!addedItem.msrp && <button onClick={generateMSRP}>Generate MSRP</button>}
-            {addedItem.msrp != 0 && (
+            {!addedItem.msrp && (isSubmitted ? (
+              <button disabled="true">
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                &nbsp; Processing...
+              </button>
+            ) : (
+              <button onClick={generateMSRP}>Generate MSRP</button>
+            ))}
+            {addedItem.msrp != 0 && (isSubmitted ? (
+              <button disabled="true">
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                &nbsp; Processing...
+              </button>
+            ) : (
               <>
                 <button onClick={generateMSRP}>Re-Generate MSRP</button>
                 <div className="result-container">
@@ -157,7 +184,7 @@ function MSRPGenerator() {
                   </p>
                 </div>
               </>
-            )}
+            ))}
           </div>
           <div className="graph-msrp">
             <Graph />
@@ -224,21 +251,6 @@ function MSRPGenerator() {
                 <b>Available quantity: </b>
                 {addedItem.quantity}
               </p>
-              <img
-                src={addedItem.image} />
-              <br />
-              <img
-                src={addedItem.barcode} />
-            </div>
-            <div className="msrp-item-details-right">
-              <p className="details-items"><b>Item Code: </b>{addedItem.itemCode}</p>
-              <p className="details-items"><b>Brand: </b>{addedItem.brand}</p>
-              <p className="details-items"><b>Color: </b>{addedItem.color}</p>
-              <p className="details-items"><b>Type: </b>{addedItem.type}</p>
-              <p className="details-items"><b>Cost: </b>{addedItem.cost}</p>
-              <p className="details-items"><b>MSRP: </b>{addedItem.msrp}</p>
-              <p className="details-items"><b>HSRP: </b>{addedItem.hsrp}</p>
-              <p className="details-items"><b>Available quantity: </b>{addedItem.quantity}</p>
             </div>
           </div>
         </div>
