@@ -105,7 +105,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="humanlyGivenValue"
-                value={addedItem.hsrp.toFixed(2)}
+                value={addedItem.hsrp}
                 disabled={true}
               />
             </div>
@@ -114,7 +114,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="retailPrice"
-                value={addedItem.retailPrice.toFixed(2)}
+                value={addedItem.retailPrice}
                 disabled={true}
               />
             </div>
@@ -123,7 +123,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="cost"
-                value={addedItem.cost.toFixed(2)}
+                value={addedItem.cost}
                 disabled={true}
               />
             </div>
@@ -167,26 +167,26 @@ function MSRPGenerator() {
         <div className="msrp-item-details-container">
           <h2>Item Details</h2>
           <div className="msrp-item-details">
-          <div className="msrp-item-details-left">
-            <h3>{addedItem.name}</h3>
-            <img
-            src={addedItem.image}/>
-            <br/>
-            <img
-            src={addedItem.barcode}/>
+            <div className="msrp-item-details-left">
+              <h3>{addedItem.name}</h3>
+              <img
+                src={addedItem.image} />
+              <br />
+              <img
+                src={addedItem.barcode} />
+            </div>
+            <div className="msrp-item-details-right">
+              <p className="details-items"><b>Item Code: </b>{addedItem.itemCode}</p>
+              <p className="details-items"><b>Brand: </b>{addedItem.brand}</p>
+              <p className="details-items"><b>Color: </b>{addedItem.color}</p>
+              <p className="details-items"><b>Type: </b>{addedItem.type}</p>
+              <p className="details-items"><b>Cost: </b>{addedItem.cost}</p>
+              <p className="details-items"><b>MSRP: </b>{addedItem.msrp}</p>
+              <p className="details-items"><b>HSRP: </b>{addedItem.hsrp}</p>
+              <p className="details-items"><b>Available quantity: </b>{addedItem.quantity}</p>
+            </div>
           </div>
-          <div className="msrp-item-details-right">
-            <p className="details-items"><b>Item Code: </b>{addedItem.itemCode}</p>
-            <p className="details-items"><b>Brand: </b>{addedItem.brand}</p>
-            <p className="details-items"><b>Color: </b>{addedItem.color}</p>
-            <p className="details-items"><b>Type: </b>{addedItem.type}</p>
-            <p className="details-items"><b>Cost: </b>{addedItem.cost}</p>
-            <p className="details-items"><b>MSRP: </b>{addedItem.msrp}</p>
-            <p className="details-items"><b>HSRP: </b>{addedItem.hsrp}</p>
-            <p className="details-items"><b>Available quantity: </b>{addedItem.quantity}</p>
-          </div>
-          </div>
-      </div>
+        </div>
       </div>
     </>
   );
