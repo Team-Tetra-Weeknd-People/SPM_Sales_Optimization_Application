@@ -9,6 +9,7 @@ import BarcodeGenerator from "../pages/items/barcode-generator";
 import DataFeeder from "../pages/machine-learning/data-feeder";
 import MSRPGenerator from "../pages/machine-learning/msrp-generator";
 import Cashier from "../pages/Cashier/cashier-main";
+import Profile from "../pages/profile/profile";
 
 export default function App() {
     return (
@@ -24,31 +25,9 @@ export default function App() {
                     <Route path="/msrp-generator/:itemID" element={<MSRPGenerator />} />
                     <Route path="/d" element={<DataFeeder />} />
                     <Route path="/cashier" element={<Cashier />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Routes>
             </Router>
         </>
     )
-import Profile from "../pages/profile/profile";
-
-export default function App() {
-  return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/items-main" element={<ItemsMain />} />
-          <Route path="/item-add" element={<ItemAdd />} />
-          <Route
-            path="/barcode-generator/:itemID"
-            element={<BarcodeGenerator />}
-          />
-          <Route path="/msrp-generator/:itemID" element={<MSRPGenerator />} />
-          <Route path="/d" element={<DataFeeder />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </Router>
-    </>
-  );
 }
