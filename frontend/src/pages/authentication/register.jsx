@@ -5,18 +5,21 @@ import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { storage } from "../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 function Register() {
   const [image, setImage] = useState("");
 
-  //seller register validation
+  //user register validation
   const registerSchema = Yup.object().shape({
     firstName: Yup.string()
-      .min(5, "Too Short! Enter More Than 5 Characters")
+      .min(3, "Too Short! Enter More Than 3 Characters")
       .max(50, "Too Long!")
       .required("Required"),
     lastName: Yup.string()
-      .min(5, "Too Short! Enter More Than 5 Characters")
+      .min(3, "Too Short! Enter More Than 5 Characters")
       .max(50, "Too Long!")
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
@@ -25,7 +28,7 @@ function Register() {
       .max(12, "Too Long!")
       .required("Required"),
     password: Yup.string()
-      .min(8, "Too Short! Enter More Than 8 Characters")
+      .min(4, "Too Short! Enter More Than 8 Characters")
       .max(50, "Too Long!")
       .required("Required"),
     confirmPassword: Yup.string()
@@ -34,64 +37,67 @@ function Register() {
   });
 
   async function register(values) {
-    // const storageRef = ref(storage, `seller/${Image.name + v4()}`);
+    //add img to firebase
+    const storageRef = ref(storage, `user/${Image.name + v4()}`);
 
-    // await uploadBytes(storageRef, imageSeller)
-    //   .then(() => {
-    //     console.log("uploaded");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // await getDownloadURL(storageRef)
-    //   .then(async (url) => {
-    // console.log(url);
-    const data = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      contactNo: values.contactNo,
-      password: values.password,
-      image: "sd",
-    };
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/`, data)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          icon: "success",
-          title: "Successful",
-          text: "New User Registered Successfully!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            const login = { email: values.email, password: values.password };
-            axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
-              .then((res) => {
-                sessionStorage.setItem("user", res.data.user);
-                window.location.href = "/";
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        });
+    await uploadBytes(storageRef, image)
+      .then(() => {
+        console.log("uploaded");
       })
       .catch((err) => {
         console.log(err);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Please Check Your Email!!",
-          footer: "Your Email is already in the Database!!",
-        });
       });
 
-    //   }).catch((err) => {
-    //     console.log(err);
-    //     alert("Email already exists!")
-    //     return;
-    //   });
+    await getDownloadURL(storageRef).then(async (url) => {
+      console.log(url);
+      const data = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        contactNo: values.contactNo,
+        password: values.password,
+        image: url,
+      };
+      await axios
+        .post(`${import.meta.env.VITE_BACKEND_URL}/user/`, data)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            icon: "success",
+            title: "Successful",
+            text: "New User Registered Successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const login = {
+                email: res.data.email,
+                password: res.data.password,
+              };
+              axios
+                .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
+                .then((res) => {
+                  sessionStorage.setItem("userid", res.data.id);
+                  window.location.href = "/items-main";
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please Check Your Email!!",
+            footer: "Your Email already exist!!",
+          });
+        });
+    });
   }
+
   return (
     <>
       <div className="register-container">
