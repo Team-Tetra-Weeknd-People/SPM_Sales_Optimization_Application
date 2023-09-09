@@ -1,9 +1,14 @@
 import "../../styles/sudul/Login.css";
 import Button from "react-bootstrap/Button";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+
+import loginImage from '../../assets/images/Login.jpg'
 
 function Login() {
   const loginSchema = Yup.object().shape({
@@ -25,7 +30,7 @@ function Login() {
         });
         sessionStorage.setItem("userid", res.data.id);
         setTimeout(() => {
-          window.location.href = "/profile";
+          window.location.href = "/dashboard";
         }, 1500);
       })
       .catch((err) => {
@@ -41,59 +46,68 @@ function Login() {
   return (
     <>
       <div className="login-container">
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validationSchema={loginSchema}
-          onSubmit={(values) => {
-            console.log(values);
-            login(values);
-          }}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              {/* email */}
-              <div className="form-group col-md-6">
-                <label>Email</label>
-                <Field
-                  name="email"
-                  placeholder="example@abc.com"
-                  type="text"
-                  className={
-                    "form-control" +
-                    (errors.email && touched.email ? " is-invalid" : "")
-                  }
-                />
-                <div className="invalid-feedback">{errors.email}</div>
-              </div>
+        <h2>PriceQ Login</h2>
+        <Row>
 
-              {/* password */}
-              <div className="form-group col-md-6">
-                <label>Password</label>
-                <Field
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                  className={
-                    "form-control" +
-                    (errors.password && touched.password ? " is-invalid" : "")
-                  }
-                />
-                <div className="invalid-feedback">{errors.password}</div>
-              </div>
+          <Image src={loginImage} style={{ width: "300px" }} rounded />
 
-              <br />
-              {/* submit button */}
-              <Button variant="primary" type="submit">
-                Login
-              </Button>
-            </Form>
-          )}
-        </Formik>
+        </Row>
+        <Row>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validationSchema={loginSchema}
+            onSubmit={(values) => {
+              console.log(values);
+              login(values);
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                {/* email */}
+                <div className="form-group col-md-6">
+                  <label>Email</label>
+                  <Field
+                    name="email"
+                    placeholder="example@abc.com"
+                    type="text"
+                    className={
+                      "form-control" +
+                      (errors.email && touched.email ? " is-invalid" : "")
+                    }
+                  />
+                  <div className="invalid-feedback">{errors.email}</div>
+                </div>
+
+                {/* password */}
+                <div className="form-group col-md-6">
+                  <label>Password</label>
+                  <Field
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    className={
+                      "form-control" +
+                      (errors.password && touched.password ? " is-invalid" : "")
+                    }
+                  />
+                  <div className="invalid-feedback">{errors.password}</div>
+                </div>
+
+                <br />
+                {/* submit button */}
+                <Button variant="primary" type="submit" style={{ marginLeft: "110px" }}>
+                  Login
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Row>
+        <br />
         <div>
-          <a href="./register">Register</a>
+          New User? <a href="./register">Register</a>
         </div>
       </div>
     </>
