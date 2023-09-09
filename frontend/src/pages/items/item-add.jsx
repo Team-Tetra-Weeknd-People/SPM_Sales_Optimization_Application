@@ -18,6 +18,7 @@ import "../../styles/randula/itemAdd.css";
 export default function addItems() {
 
     const [isSubmitted, setIsSubmitted] = useState(false);
+
     const [image, setImage] = useState("");
 
     const itemSchema = Yup.object().shape({
@@ -45,7 +46,6 @@ export default function addItems() {
             .required("Required")
             .max(50, "Too Long!")
             .min(5, "Too Short!"),
-        //hsrp as number cant be minus
         cost: Yup.number()
             .required("Required")
             .positive("Cannot be negative"),
@@ -233,8 +233,8 @@ export default function addItems() {
 
                                             {/* break */}
                                             <Col style={{ flex: 1 }}>
-                                                 {/* cost */}
-                                                 <div className="form-group col-md-6">
+                                                {/* cost */}
+                                                <div className="form-group col-md-6">
                                                     <label>Cost</label>
                                                     <Field
                                                         name="cost"

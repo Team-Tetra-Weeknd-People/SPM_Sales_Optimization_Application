@@ -33,6 +33,7 @@ function ItemsMain() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [image, setImage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // const [currPage, setCurrPage] = useState(1); // storing current page number
   // const [prevPage, setPrevPage] = useState(0); // storing prev page number
@@ -140,6 +141,9 @@ function ItemsMain() {
       .max(50, "Too Long!")
       .min(5, "Too Short!"),
     //hsrp as number cant be minus
+    cost: Yup.number()
+      .required("Required")
+      .positive("Cannot be negative"),
     hsrp: Yup.number()
       .required("Required")
       .positive("Cannot be negative"),
@@ -175,6 +179,7 @@ function ItemsMain() {
           brand: values.brand,
           color: values.color,
           type: values.type,
+          cost: values.cost,
           hsrp: values.hsrp,
           retailPrice: values.retailPrice,
           quantity: values.quantity,
@@ -206,6 +211,39 @@ function ItemsMain() {
           });
       })
   }
+
+  async function handleDelete(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/item/${id}`)
+          .then((res) => {
+            console.log(res.data);
+            Swal.fire({
+              icon: "success",
+              title: "Item Deleted Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              getAllItems();
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          });
+      }
+    });
+  }
+
 
   return (
     <>
@@ -274,6 +312,10 @@ function ItemsMain() {
               <img src={item.barcode} alt="item image" style={{ maxWidth: '25rem' }} />
               <br /><br />
               <Button variant="primary" target="_blank" href={item.barcode}>View Barcode</Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button variant="primary" onClick={(() => {
+                window.location.href = `/msrp-generator/${item.id}`;
+              })}>Calculate MSRP</Button>
               <br /><br /><br />
               <Table striped>
                 <tbody>
@@ -285,12 +327,17 @@ function ItemsMain() {
                       <span>Rs.{item.msrp}</span>
                     )
                     }</td>
+
+                  </tr>
+                  <tr>
+                    <td>Manufactuere Cost</td>
+                    <td>
+                      Rs.{item.cost}
+                    </td>
                   </tr>
                 </tbody>
               </Table>
-              <Button variant="primary" onClick={(()=>{
-                window.location.href = `/msrp-generator/${item.id}`;
-              })}>Calculate MSRP</Button>
+
             </Col>
           </Row>
         </Modal.Body>
@@ -324,6 +371,7 @@ function ItemsMain() {
                     brand: item.brand,
                     color: item.color,
                     type: item.type,
+                    cost: item.cost,
                     hsrp: item.type,
                     retailPrice: item.retailPrice,
                     quantity: item.quantity,
@@ -429,6 +477,24 @@ function ItemsMain() {
 
                         {/* break */}
                         <Col style={{ flex: 1 }}>
+
+                          {/* cost */}
+                          <div className="form-group col-md-6">
+                            <label>Cost</label>
+                            <Field
+                              name="cost"
+                              type="text"
+                              onInput={(e) => {
+                                e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                              }}
+                              className={
+                                "form-control" +
+                                (errors.cost && touched.cost ? " is-invalid" : "")
+                              }
+                            />
+                            <div className="invalid-feedback">{errors.cost}</div>
+                          </div>
+
                           {/* hsrp */}
                           <div className="form-group col-md-6">
                             <label>HSRP</label>
@@ -538,18 +604,22 @@ function ItemsMain() {
       </Modal >
 
 
-
       <Navbar />
       <div className="items-container">
         <Row>
           <Col sm={5}>
             <Button onClick={() => { navigate("/item-add") }}>Add New Item</Button>
           </Col>
-          <Col sm={5}>
+          <Col sm={3}>
             <h2>All Items</h2>
           </Col>
-          <Col sm={2}>
-            <h2>Search Items</h2>
+          <Col sm={4}>
+            {/* search bar */}
+            <div className="search">
+              <input type="text" placeholder="Search Items..." onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }} />
+            </div>
           </Col>
         </Row>
         <div className="item-list">
@@ -570,31 +640,37 @@ function ItemsMain() {
               </tr>
             </thead>
             <tbody>
-              {allItems.length === 0 ? (
-                <tr>
-                  <td colSpan="9">
-                    <BarLoader color="#36d7b7" />
-                  </td>
-                </tr>
-              ) : (
-                allItems.map((item) => (
+              {allItems.filter((val) => {
+                if (searchTerm === "") {
+                  return val;
+                } else if (
+                  val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  val.itemCode.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                }
+              }).map((item) => {
+                return (
                   <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.itemCode}</td>
                     <td>{item.name}</td>
                     <td>{item.brand}</td>
                     <td>{item.quantity}</td>
-                    <td>Rs. {item.retailPrice.toFixed(2)}</td>
-                    <td><Button variant="primary" onClick={() => {
-                      handleView(item);
-                    }}>View</Button>{' '}</td>
-                    <td><Button variant="warning" onClick={() => {
-                      handleEdit(item);
-                    }}>Edit</Button>{' '}</td>
-                    <td><Button variant="danger">Delete</Button>{' '}</td>
+                    <td>{item.retailPrice}</td>
+                    <td>
+                      <Button variant="primary" onClick={() => { handleView(item) }}>View</Button>
+                    </td>
+                    <td>
+                      <Button variant="warning" onClick={() => { handleEdit(item) }}>Edit</Button>
+                    </td>
+                    <td>
+                      <Button variant="danger" onClick={() => { handleDelete(item.id) }}>Delete</Button>
+                    </td>
                   </tr>
-                ))
-              )}
+                );
+              })}
+
             </tbody>
           </Table>
         </div>
