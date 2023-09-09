@@ -23,11 +23,10 @@ function Login() {
           title: "Successful",
           text: "Login Successfully!",
         });
-        sessionStorage.setItem("user", res.data.user);
-        setTimeout(()=>{
-          window.location.href = "/home";
-        },1500);
-        
+        sessionStorage.setItem("userid", res.data.id);
+        setTimeout(() => {
+          window.location.href = "/profile";
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
