@@ -123,16 +123,16 @@ export default function addItems() {
                             <h2>Add New Item</h2>
                             <Formik
                                 initialValues={{
-                                    itemCode: "12345",
+                                    itemCode: "",
                                     name: "",
-                                    description: "Test Description",
+                                    description: "",
                                     brand: "",
                                     color: "",
                                     type: "",
                                     cost: "",
                                     hsrp: "",
                                     retailPrice: "",
-                                    quantity: "20",
+                                    quantity: "",
                                 }}
                                 validationSchema={itemSchema}
                                 onSubmit={(values) => {

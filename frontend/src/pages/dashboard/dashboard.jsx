@@ -18,7 +18,7 @@ export default function dashboard() {
                     }}>
                         <div className="overlay">
                             <h1 className="overlayHead">Cashier</h1>
-                            <h2 className="overlayHead">Lorem ipsum dolor sit amet consectetur</h2>
+                            <h2 className="overlayHead">Handle your orders within the system</h2>
                         </div>
                     </Col>
                     <Col className="cluster rightUp" onClick={() => {
@@ -26,7 +26,7 @@ export default function dashboard() {
                     }}>
                         <div className="overlay">
                             <h1 className="overlayHead">Items</h1>
-                            <h2 className="overlayHead">Lorem ipsum dolor sit amet consectetur</h2>
+                            <h2 className="overlayHead">Manage the item details in the system</h2>
                         </div>
                     </Col>
                 </Row>
@@ -36,7 +36,7 @@ export default function dashboard() {
                     }}>
                         <div className="overlay">
                             <h1 className="overlayHead">Reviews</h1>
-                            <h2 className="overlayHead">Lorem ipsum dolor sit amet consectetur</h2>
+                            <h2 className="overlayHead">Manage items reviews managed through the system</h2>
                         </div>
                     </Col>
                     <Col className="cluster rightDown" onClick={() => {
@@ -44,7 +44,7 @@ export default function dashboard() {
                     }}>
                         <div className="overlay">
                             <h1 className="overlayHead">Profile</h1>
-                            <h2 className="overlayHead">Lorem ipsum dolor sit amet consectetur</h2>
+                            <h2 className="overlayHead">Manage your user profile details</h2>
                         </div>
                     </Col>
                 </Row>
