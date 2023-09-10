@@ -52,9 +52,9 @@ export const OrderedItems = ({item }) => {
                     <td>{item.name}</td>
                     <td>{item.brand}</td>
                     <td>{item.quantity}</td>
-                    <td>Rs. {item.retailPrice}</td>
-                    <td>Rs. {discount}</td>
-                    <td>Rs. {item.retailPrice - discount}</td>
+                    <td>${item.retailPrice}</td>
+                    <td>${discount}</td>
+                    <td>${item.retailPrice - discount}</td>
                     <td><Button variant="warning" onClick={handleOpenDialog}>Set Discount</Button>{' '}</td>
                     <td><Button variant="warning" onClick={() => OrderedItemAdd(item, discount)} >Purchase</Button>{' '}</td>
                   </tr>
