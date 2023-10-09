@@ -1,7 +1,10 @@
 /* Add this CSS to your component's stylesheet */
-.items-container {
+.items-container-main {
   padding: 20px;
   margin-top: 70px;
+  width: 80%;
+  margin: 0px auto;
+  margin-top: 120px;
   /* Adjust to give space below the Navbar */
 }
 

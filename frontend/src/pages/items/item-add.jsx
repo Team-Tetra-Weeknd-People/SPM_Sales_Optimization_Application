@@ -37,11 +37,11 @@ export default function addItems() {
         brand: Yup.string()
             .required("Required")
             .max(50, "Too Long!")
-            .min(5, "Too Short!"),
+            .min(3, "Too Short!"),
         color: Yup.string()
             .required("Required")
             .max(50, "Too Long!")
-            .min(5, "Too Short!"),
+            .min(3, "Too Short!"),
         type: Yup.string()
             .required("Required")
             .max(50, "Too Long!")
@@ -124,15 +124,15 @@ export default function addItems() {
                             <Formik
                                 initialValues={{
                                     itemCode: "12345",
-                                    name: "12345",
-                                    description: "12345",
-                                    brand: "12345",
-                                    color: "12345",
-                                    type: "12345",
-                                    cost: "1234",
-                                    hsrp: "12345",
-                                    retailPrice: "12345",
-                                    quantity: "12345",
+                                    name: "",
+                                    description: "Test Description",
+                                    brand: "",
+                                    color: "",
+                                    type: "",
+                                    cost: "",
+                                    hsrp: "",
+                                    retailPrice: "",
+                                    quantity: "20",
                                 }}
                                 validationSchema={itemSchema}
                                 onSubmit={(values) => {

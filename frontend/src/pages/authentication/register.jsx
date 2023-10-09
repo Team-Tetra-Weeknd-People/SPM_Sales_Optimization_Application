@@ -1,5 +1,6 @@
 import "../../styles/sudul/Register.css";
 import Button from "react-bootstrap/Button";
+import Spinner from 'react-bootstrap/Spinner';
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
@@ -11,6 +12,7 @@ import { v4 } from "uuid";
 
 function Register() {
   const [image, setImage] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   //user register validation
   const registerSchema = Yup.object().shape({
@@ -68,22 +70,20 @@ function Register() {
             text: "New User Registered Successfully!",
             showConfirmButton: false,
             timer: 1500,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              const login = {
-                email: res.data.email,
-                password: res.data.password,
-              };
-              axios
-                .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
-                .then((res) => {
-                  sessionStorage.setItem("userid", res.data.id);
-                  window.location.href = "/items-main";
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            }
+          }).then(() => {
+            const login = {
+              email: res.data.email,
+              password: res.data.password,
+            };
+            axios
+              .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
+              .then((res) => {
+                sessionStorage.setItem("userid", res.data.id);
+                window.location.href = "/dashboard";
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           });
         })
         .catch((err) => {
@@ -91,8 +91,8 @@ function Register() {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Please Check Your Email!!",
-            footer: "Your Email already exist!!",
+            text: "Please Check Your Email and Contact No!!",
+            footer: "Your Email or Contact Number already exist!!",
           });
         });
     });
@@ -112,6 +112,7 @@ function Register() {
           }}
           validationSchema={registerSchema}
           onSubmit={(values) => {
+            setIsSubmitted(true);
             register(values);
           }}
         >
@@ -209,25 +210,43 @@ function Register() {
                 <div className="invalid-feedback">{errors.confirmPassword}</div>
               </div>
 
-              {/* image upload */}
+              {/* image */}
               <div className="form-group col-md-6">
-                <label>Profile picture</label>
-                <br />
-                <br />
-                <input
+                <label>Image</label>
+                <Field
+                  name="image"
                   type="file"
-                  name="file"
+                  style={{ width: "300px" }}
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                   }}
+                  className={
+                    "form-control" +
+                    (errors.image && touched.image ? " is-invalid" : "")
+                  }
+                  required
                 />
+                <div className="invalid-feedback">{errors.image}</div>
               </div>
 
               <br />
               {/* submit button */}
-              <Button variant="primary" type="submit">
-                Register
-              </Button>
+              {isSubmitted ? (
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  &nbsp; Processing...
+                </Button>
+              ) : (
+                <Button variant="primary" type="submit">
+                  Register
+                </Button>
+              )}
             </Form>
           )}
         </Formik>
