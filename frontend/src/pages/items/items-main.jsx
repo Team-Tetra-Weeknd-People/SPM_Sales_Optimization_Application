@@ -21,6 +21,11 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import "../../styles/sudul/ItemsMain.css";
 
+import Brands from "../../assets/data/brand.json"
+import Colors from "../../assets/data/color.json"
+import Types from "../../assets/data/type.json"
+
+
 function ItemsMain() {
   const navigate = useNavigate();
   // const listInnerRef = useRef();
@@ -447,58 +452,71 @@ function ItemsMain() {
                             </div>
                           </div>
 
-                          {/* brand */}
-                          <div className="form-group col-md-6">
+                          {/* brand dropdown*/}
+                          <div className="form-group col-md-6" style={{ width: "300px" }}>
                             <label>Brand</label>
                             <Field
                               name="brand"
-                              type="text"
+                              as="select"
+                              style={{ width: "300px" }}
                               className={
                                 "form-control" +
-                                (errors.brand && touched.brand
-                                  ? " is-invalid"
-                                  : "")
+                                (errors.brand && touched.brand ? " is-invalid" : "")
                               }
-                            />
-                            <div className="invalid-feedback">
-                              {errors.brand}
-                            </div>
+                            >
+                              <option value="" label="Select a Brand" />
+                              {Brands.map((brand) => {
+                                return (
+                                  <option key={brand.id} value={brand.name} label={brand.name} />
+                                );
+                              })}
+                            </Field>
+                            <div className="invalid-feedback">{errors.brand}</div>
                           </div>
 
-                          {/* color */}
-                          <div className="form-group col-md-6">
+
+                          {/* color dropdown*/}
+                          <div className="form-group col-md-6" style={{ width: "300px" }}>
                             <label>Color</label>
                             <Field
                               name="color"
-                              type="text"
+                              as="select"
+                              style={{ width: "300px" }}
                               className={
                                 "form-control" +
-                                (errors.color && touched.color
-                                  ? " is-invalid"
-                                  : "")
+                                (errors.color && touched.color ? " is-invalid" : "")
                               }
-                            />
-                            <div className="invalid-feedback">
-                              {errors.color}
-                            </div>
+                            >
+                              <option value="" label="Select a Color" />
+                              {Colors.map((color) => {
+                                return (
+                                  <option key={color.id} value={color.name} label={color.name} />
+                                );
+                              })}
+                            </Field>
+                            <div className="invalid-feedback">{errors.color}</div>
                           </div>
 
-                          {/* type */}
-                          <div className="form-group col-md-6">
+                          {/* type dropdown*/}
+                          <div className="form-group col-md-6" style={{ width: "300px" }}>
                             <label>Type</label>
                             <Field
                               name="type"
-                              type="text"
+                              as="select"
+                              style={{ width: "300px" }}
                               className={
                                 "form-control" +
-                                (errors.type && touched.type
-                                  ? " is-invalid"
-                                  : "")
+                                (errors.type && touched.type ? " is-invalid" : "")
                               }
-                            />
-                            <div className="invalid-feedback">
-                              {errors.type}
-                            </div>
+                            >
+                              <option value="" label="Select a Type" />
+                              {Types.map((type) => {
+                                return (
+                                  <option key={type.id} value={type.name} label={type.name} />
+                                );
+                              })}
+                            </Field>
+                            <div className="invalid-feedback">{errors.type}</div>
                           </div>
                         </Col>
 
@@ -646,8 +664,6 @@ function ItemsMain() {
                     </Form>
                   )}
                 </Formik>
-                <br />
-                <br />
               </div>
             </Col>
           </Row>
