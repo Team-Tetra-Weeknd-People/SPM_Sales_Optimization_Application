@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Graph from "../../components/graph";
 import Swal from "sweetalert2";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 
 function MSRPGenerator() {
   const { itemID } = useParams();
@@ -94,7 +94,7 @@ function MSRPGenerator() {
       });
       console.error("Error updating item details:", error);
     }
-  }
+  };
 
   const generateMSRP = async () => {
     setIsSubmitted(true);
@@ -110,8 +110,8 @@ function MSRPGenerator() {
         icon: "error",
         title: "Error!",
         text: "MSRP cannot be generated for this item!\nAI is not trained for this data!",
-      }).then((res)=>{
-        if(res.isConfirmed){
+      }).then((res) => {
+        if (res.isConfirmed) {
           window.location.reload();
         }
       });
@@ -135,7 +135,7 @@ function MSRPGenerator() {
               <input
                 type="text"
                 id="humanlyGivenValue"
-                value={"$" +addedItem.hsrp.toFixed(2)}
+                value={"$" + addedItem.hsrp.toFixed(2)}
                 disabled={true}
               />
             </div>
@@ -157,46 +157,53 @@ function MSRPGenerator() {
                 disabled={true}
               />
             </div>
-            {!addedItem.msrp && (isSubmitted ? (
-              <button disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                &nbsp; Processing...
-              </button>
-            ) : (
-              <button onClick={generateMSRP}>Generate MSRP</button>
-            ))}
-            {addedItem.msrp != 0 && (isSubmitted ? (
-              <button disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                &nbsp; Processing...
-              </button>
-            ) : (
-              <>
-                <button onClick={generateMSRP}>Re-Generate MSRP</button>
-                <div className="result-container">
-                  <p>Generated MSRP:</p>
-                  <p className="msrp-value">${addedItem.msrp.toFixed(2)}</p>
-                  <p className="red-msrp-desc">
-                    Most Suitable retail price was generated earlier!
-                  </p>
-                </div>
-              </>
-            ))}
+            {!addedItem.msrp &&
+              (isSubmitted ? (
+                <button disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  &nbsp; Processing...
+                </button>
+              ) : (
+                <button onClick={generateMSRP}>Generate MSRP</button>
+              ))}
+            {addedItem.msrp != 0 &&
+              (isSubmitted ? (
+                <button disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  &nbsp; Processing...
+                </button>
+              ) : (
+                <>
+                  <button onClick={generateMSRP}>Re-Generate MSRP</button>
+                  <div className="result-container">
+                    <p>Generated MSRP:</p>
+                    <p className="msrp-value">${addedItem.msrp.toFixed(2)}</p>
+                    <p className="red-msrp-desc">
+                      Most Suitable retail price was generated earlier!
+                    </p>
+                  </div>
+                </>
+              ))}
           </div>
           <div className="graph-msrp">
-            <Graph />
+            <Graph
+              cost={addedItem.cost.toFixed(2)}
+              msrp={addedItem.msrp ? addedItem.msrp.toFixed(2) : 0}
+              level3={addedItem.msrp ? (((addedItem.msrp - addedItem.cost) + addedItem.msrp)*1.2).toFixed(2) : 0}
+              level4={addedItem.msrp ? (((addedItem.msrp - addedItem.cost) + addedItem.msrp)*1.5).toFixed(2) : 0}
+            />
           </div>
         </div>
         <div className="change-retail-price">
@@ -207,7 +214,7 @@ function MSRPGenerator() {
               <input
                 type="float"
                 id="newRetailPrice"
-                value={retailPrice.toFixed(2)}
+                value={retailPrice}
                 onChange={(e) => {
                   setRetailPrice(e.target.value);
                 }}
