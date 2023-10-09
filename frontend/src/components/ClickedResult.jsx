@@ -33,7 +33,7 @@ export const ClickedResult = ({ selectedItem }) => {
 
     return (
         <>
-        <div className="items-container">
+        <div className="items-container-mad">
         <div className="item-list">
           <h2 className="sub-heading">{item.name} Item</h2>
           <div className="rentcont">
