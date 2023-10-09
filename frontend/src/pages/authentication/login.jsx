@@ -23,23 +23,41 @@ function Login() {
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
       .then((res) => {
-        Swal.fire({
-          icon: "success",
-          title: "Successful",
-          text: "Login Successfully!",
-        });
-        sessionStorage.setItem("userid", res.data.id);
-        setTimeout(() => {
-          window.location.href = "/dashboard";
-        }, 1500);
+        if (res.data.status) {
+          Swal.fire({
+            icon: "success",
+            title: "Successful",
+            text: "Login Successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+
+          });
+          sessionStorage.setItem("userid", res.data.id);
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 1500);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please Check Your Email & Password!!",
+            footer: "Your Credentails Are Invalid!!",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Please Check Your Email & Password!!",
-          footer: "Your Credentails Are Invalid!!",
+          text: "Error Occured While Login!",
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
         });
       });
   }

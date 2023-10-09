@@ -21,4 +21,5 @@ public class Review {
     private String description;
     private float rating;
     private LocalDate createdAt;
+    private Item item;
 }
