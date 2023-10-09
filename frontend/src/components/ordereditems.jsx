@@ -6,10 +6,10 @@ import { OrderedItemAdd } from "./ordereditem-add";
 
 import "../styles/madusha/OrderedItems.css";
 
-export const OrderedItems = ({item }) => {
+export const OrderedItems = ({ item }) => {
 
-    const [discount, setDiscount] = useState(0);
-    const [showDialog, setShowDialog] = useState(false);
+  const [discount, setDiscount] = useState(0);
+  const [showDialog, setShowDialog] = useState(false);
 
   const handleOpenDialog = () => {
     setShowDialog(true);
@@ -25,7 +25,6 @@ export const OrderedItems = ({item }) => {
     }
     setShowDialog(false);
   };
-
     return (
         <>
           <h2>{item.name} Item</h2>
@@ -76,7 +75,24 @@ export const OrderedItems = ({item }) => {
             <button className="dialog-btn" onClick={handleCloseDialog}>Cancel</button>
             </div>
             )}
+          )
+          }
+        </tbody>
+      </Table>
+      {showDialog && (
+        <div className="showdialog-container">
+          <h3>Update Discount Price</h3>
+          <input
+            type="number"
+            placeholder="New Discount Price"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
+          />
+          <button className="dialog-btn" onClick={handleUpdateDiscount}>Save</button>
+          <button className="dialog-btn" onClick={handleCloseDialog}>Cancel</button>
+        </div>
+      )}
 
-        </>
-    )
+    </>
+  )
 };
