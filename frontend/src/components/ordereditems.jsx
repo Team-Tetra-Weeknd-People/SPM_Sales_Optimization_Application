@@ -58,7 +58,9 @@ export const OrderedItems = ({ item }) => {
               <td><Button variant="warning" onClick={handleOpenDialog}>Set Discount</Button>{' '}</td>
               <td><Button variant="warning" onClick={() => OrderedItemAdd(item, discount)} >Purchase</Button>{' '}</td>
             </tr>
-          )}
+
+          )
+          }
         </tbody>
       </Table>
       {showDialog && (
@@ -74,6 +76,7 @@ export const OrderedItems = ({ item }) => {
           <button className="dialog-btn" onClick={handleCloseDialog}>Cancel</button>
         </div>
       )}
+
     </>
   )
 };
