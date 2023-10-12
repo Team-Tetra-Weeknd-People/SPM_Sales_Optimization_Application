@@ -453,6 +453,7 @@ export default function profile() {
               src={user.image}
               className="userImg"
               alt="user image"
+              loading=" lazy"
             />
           </Col>
           <Col className="colmn2" sm={6}>

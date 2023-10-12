@@ -168,8 +168,11 @@ function Register() {
                 <label>Contact Number</label>
                 <Field
                   name="contactNo"
-                  placeholder="+94770000000"
+                  placeholder="0770000000"
                   type="text"
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  }}
                   className={
                     "form-control" +
                     (errors.contactNo && touched.contactNo ? " is-invalid" : "")
