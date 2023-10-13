@@ -6,7 +6,6 @@ import Register from "../pages/authentication/register";
 import ItemsMain from "../pages/items/items-main";
 import ItemAdd from "../pages/items/item-add";
 import BarcodeGenerator from "../pages/items/barcode-generator";
-import DataFeeder from "../pages/machine-learning/data-feeder";
 import MSRPGenerator from "../pages/machine-learning/msrp-generator";
 import Cashier from "../pages/Cashier/cashier-main";
 import Reviews from "../pages/reviews/reviews";
