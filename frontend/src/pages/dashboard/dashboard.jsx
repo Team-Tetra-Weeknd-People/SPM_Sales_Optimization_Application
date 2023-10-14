@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 import Navbar from '../../components/navbar';
 import '../../styles/randula/dashboard.css';
 import cashier from '../../assets/icons/cashier.png';
-import item from '../../assets/icons/item.png';
+import item from '../../assets/images/itemitem.png';
 import profile from '../../assets/icons/profile.png';
 import review from '../../assets/icons/star.png';
 
