@@ -15,7 +15,10 @@
 }
 
 .barcodeContainer {
+  background-color: #ffffffdc;
   width: 90%;
+  padding: 20px;
+  margin-top: 230px;
 }
 
 .col1 {
@@ -27,13 +30,9 @@
   /* Add padding for better spacing */
   border-radius: 5px;
   /* Add rounded corners */
+  max-height: 700px;
 }
 
-.col2 {
-  padding: 20px;
-  /* Add padding for better spacing */
-  background-color: #ad093a51;
-}
 
 .barcodeImage {
   width: 100%;

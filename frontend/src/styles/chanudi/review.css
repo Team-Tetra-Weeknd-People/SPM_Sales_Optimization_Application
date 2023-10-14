@@ -29,14 +29,12 @@ img.reviewImg {
     grid-template-columns: auto auto auto;
 }
 
-.heading1{
+.heading1 {
     color: white;
 }
 
-img.bathali{
-    width: 350px;
-    height: 350px;
+img.rewImage {
     border-radius: 50%;
-    margin-top: 47px;
-    margin-left: 150px;
+    size: 90%;
+    margin-left: 20px;
 }
