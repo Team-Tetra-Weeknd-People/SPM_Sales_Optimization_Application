@@ -23,3 +23,8 @@ img.reviewImg {
     border-radius: 50%;
     margin-top: 20px;
 }
+
+.reviewAll {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}

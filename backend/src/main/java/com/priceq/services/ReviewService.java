@@ -1,5 +1,6 @@
 package com.priceq.services;
 
+import com.priceq.models.Item;
 import com.priceq.models.Review;
 import com.priceq.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class ReviewService {
     @Autowired
     private ReviewRepository repository;
 
+    @Autowired
+    private ItemService itemService;
+
     public Review save(Review review) {
         review.setCreatedAt(LocalDate.now());
         return repository.save(review);
@@ -27,9 +31,6 @@ public class ReviewService {
 
     public boolean update(String id, Review updatedItem){
         Review existingItem = repository.findById(id).orElse(null);
-
-
-
         if (existingItem == null) {
             return false;
         } else {
@@ -46,7 +47,12 @@ public class ReviewService {
     }
 
     public List<Review> getAll(){
-        return repository.findAll();
+        List<Review> reviews = repository.findAll();
+        for (Review review : reviews){
+            Item item = itemService.getOne(review.getItemID()).orElse(null);
+            review.setItem(item);
+        }
+        return reviews;
     }
 
     public Optional<Review> getOne(String id) {
@@ -54,7 +60,12 @@ public class ReviewService {
     }
 
     public List<Review> getNewestRows(){
-        return repository.findTop8ByOrderByCreatedAtDesc();
+        List<Review> reviews = repository.findTop8ByOrderByCreatedAtDesc();
+        for (Review review : reviews){
+            Item item = itemService.getOne(review.getItemID()).orElse(null);
+            review.setItem(item);
+        }
+        return reviews;
     }
 
     public List<Review> getTop5ReviewsByRating() {
