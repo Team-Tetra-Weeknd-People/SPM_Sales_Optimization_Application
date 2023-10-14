@@ -1,4 +1,3 @@
-
 .cashier-main-title{
     text-align: center;
     font-size: 50px;
@@ -15,6 +14,67 @@
 }
 
 .box-container{
+    float: left;
     box-shadow: 10px;
     padding: 10px;
 }
+
+.items-container-mad{
+    float: left;
+    width: 300%;
+    box-sizing: border-box;
+    padding-right: 20px;
+    box-shadow: 10px;
+    align-self: left;
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px 5px rgba(45, 45, 45, 0.3);
+    background-image: linear-gradient(to bottom, #ffffff, #efeeec);
+
+}
+
+.selected-container{
+    float: left;
+    width: 100%;
+    box-shadow: 10px;
+    padding: 10px;
+}
+
+.sub-heading{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.dialog-btn{
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    margin: 2px;
+    color: white;
+}
+
+.showdialog-container{
+    display: right;
+    width: 50%;
+    padding: 10px;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px 5px rgba(45, 45, 45, 0.3);
+}
+
+.table{
+    float: right;
+    width: 50%;
+    padding-right: 30px;
+
+}
+
+.rent{
+    margin: 10px;
+}
+.rentcont{
+    margin: 10px;
+}
+
+
