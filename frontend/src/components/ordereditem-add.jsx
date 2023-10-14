@@ -1,30 +1,35 @@
-import React from "react";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { OrderedItems } from "./ordereditems";
+import Swal from "sweetalert2";
 
-export const OrderedItemAdd = (Item, discount) => {
-
-    const newItem = {
-        itemCode: Item.itemCode,
-        name: Item.name,
-        barcode: Item.barcode,
-        description: Item.description,
+export const OrderedItemAdd = (items, discounts) => {
+    const orderedItems = [...items];
+  
+    orderedItems.forEach((item, index) => {
+      const newItem = {
+        itemCode: item.itemCode,
+        name: item.name,
+        barcode: item.barcode,
+        description: item.description,
         orderedquantity: 1,
-        brand: Item.brand,
-        retailPrice : Item.retailPrice,
-        discountPrice: discount,
-        sellingPrice: Item.retailPrice - discount,
-    };
-    console.log(newItem);
-
-    axios
+        brand: item.brand,
+        retailPrice: item.retailPrice,
+        discountPrice: item.retailPrice*(discounts[index]/100) || 0,
+        sellingPrice: item.retailPrice - item.retailPrice*(discounts[index]/100) ||  item.retailPrice,
+      };
+  
+      axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/ordereditem/`, newItem)
         .then(() => {
-        alert("Item Ordered successfully");
+          console.log('Order made successfully');
         })
         .catch((err) => {
-        alert("Error making the order");
-        console.log(err);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+          console.log(err);
         });
-    }
+    });
+  };
+  
