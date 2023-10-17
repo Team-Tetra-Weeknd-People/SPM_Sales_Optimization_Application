@@ -15,7 +15,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 import "../../styles/randula/itemAdd.css";
-import barcodeImage from "../../assets/images/barcode.jpg";
 
 export default function barcodegenerator() {
   const barcodeRef = useRef(null);

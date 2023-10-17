@@ -15,7 +15,7 @@ import axios from "axios";
 import Brands from "../../assets/data/brand.json"
 import Colors from "../../assets/data/color.json"
 import Types from "../../assets/data/type.json"
-
+import ItemAdd from "../../assets/images/itemAdd.png"
 
 import "../../styles/randula/itemAdd.css";
 
@@ -376,8 +376,8 @@ export default function addItems() {
                         </div>
 
                     </Col>
-                    <Col className="col2" sm={4}>
-
+                    <Col className="col2" sm={4} style={{ overflow: "hidden", padding: "0" }}>
+                        <img src={ItemAdd} alt="itemAdd" />
                     </Col>
                 </Row>
             </div>

@@ -13,10 +13,10 @@ import axios from "axios";
 
 import { Tooltip } from "react-tooltip";
 
-import { ClockLoader } from "react-spinners";
+import { DotLoader, BeatLoader } from "react-spinners";
 
 import "../../styles/chanudi/review.css";
-import reviewImage from "../../assets/images/153.avif";
+import reviewImage from "../../assets/images/clothrev.webp";
 
 import Navbar from "../../components/navbar";
 
@@ -231,7 +231,8 @@ export default function reviews() {
       <Navbar />
       <div className="reviewContainer">
         <Row>
-          <Col sm={6}>
+          <Col sm={1}></Col>
+          <Col sm={5}>
             <h2 className="heading1">New Reviews</h2>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -242,7 +243,9 @@ export default function reviews() {
             >
               {!newReviews.length ? (
                 <>
-                  <ClockLoader color="#ffffff" />
+                  <div className="clock" style={{ marginLeft: "150px", marginTop: "150px" }}>
+                    <BeatLoader color="#ffffff" />
+                  </div>
                 </>
               ) : (
                 <>
@@ -269,12 +272,11 @@ export default function reviews() {
           </Col>
           <Col sm={5}>
             <Row>
-              <Image src={reviewImage} rounded  className = "bathali"/>
+              <Image src={reviewImage} rounded className="rewImage" />
             </Row>
-            <br /> <br />
             <Row>
-              <Col sm={1}></Col>
-              <Col sm={6}>
+              <Col sm={3}></Col>
+              <Col sm={4}>
                 <Button variant="primary" onClick={handleShowAll}>
                   View All Reviews
                 </Button>{" "}
@@ -303,7 +305,7 @@ export default function reviews() {
           <div className="reviewAll">
             {!reviews.length ? (
               <>
-                <ClockLoader color="#000000" />
+                <DotLoader color="#000000" />
               </>
             ) : (
               <>
@@ -412,11 +414,10 @@ export default function reviews() {
                   <Field
                     name="description"
                     id="description"
-                    className={`form-control ${
-                      touched.description && errors.description
-                        ? "is-invalid"
-                        : ""
-                    }`}
+                    className={`form-control ${touched.description && errors.description
+                      ? "is-invalid"
+                      : ""
+                      }`}
                   />
                   <div className="invalid-feedback">
                     {touched.description && errors.description
@@ -486,7 +487,7 @@ export default function reviews() {
           {/* review edit form */}
           <Formik
             initialValues={{
-            id: review.id,
+              id: review.id,
               itemID: review.itemID,
               description: review.description,
               rating: review.rating,
@@ -529,11 +530,10 @@ export default function reviews() {
                   <Field
                     name="description"
                     id="description"
-                    className={`form-control ${
-                      touched.description && errors.description
-                        ? "is-invalid"
-                        : ""
-                    }`}
+                    className={`form-control ${touched.description && errors.description
+                      ? "is-invalid"
+                      : ""
+                      }`}
                   />
                   <div className="invalid-feedback">
                     {touched.description && errors.description
