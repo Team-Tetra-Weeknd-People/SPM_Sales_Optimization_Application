@@ -1,16 +1,19 @@
+import React, { useState } from "react";
 import "../../styles/sudul/Login.css";
 import Button from "react-bootstrap/Button";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import loginImage from '../../assets/images/Login.jpg'
+import loginImage from "../../assets/images/login-vector.webp";
 
 function Login() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const loginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -19,6 +22,7 @@ function Login() {
       .required("Required"),
   });
   async function login(values) {
+    setIsLoading(true);
     const login = { email: values.email, password: values.password };
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, login)
@@ -31,7 +35,6 @@ function Login() {
             showConfirmButton: false,
             timer: 1500,
             timerProgressBar: true,
-
           });
           sessionStorage.setItem("userid", res.data.id);
           setTimeout(() => {
@@ -60,15 +63,14 @@ function Login() {
           timerProgressBar: true,
         });
       });
+    setIsLoading(false);
   }
   return (
     <>
       <div className="login-container">
         <h2>PriceQ Login</h2>
         <Row>
-
           <Image src={loginImage} style={{ width: "300px" }} rounded />
-
         </Row>
         <Row>
           <Formik
@@ -78,7 +80,7 @@ function Login() {
             }}
             validationSchema={loginSchema}
             onSubmit={(values) => {
-              console.log(values);
+              setIsLoading(true);
               login(values);
             }}
           >
@@ -116,9 +118,24 @@ function Login() {
 
                 <br />
                 {/* submit button */}
-                <Button variant="primary" type="submit" style={{ marginLeft: "110px" }}>
-                  Login
-                </Button>
+                {isLoading ? (
+                  <Button variant="primary" disabled>
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Loading...
+                  </Button>
+                ) : (
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    style={{ marginLeft: "110px" }}
+                  >
+                    Login
+                  </Button>
+                )}
               </Form>
             )}
           </Formik>

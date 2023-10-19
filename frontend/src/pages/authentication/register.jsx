@@ -1,6 +1,6 @@
 import "../../styles/sudul/Register.css";
 import Button from "react-bootstrap/Button";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
@@ -101,6 +101,7 @@ function Register() {
   return (
     <>
       <div className="register-container">
+        <h2>PriceQ Register</h2>
         <Formik
           initialValues={{
             firstName: "",
@@ -232,7 +233,6 @@ function Register() {
                 <div className="invalid-feedback">{errors.image}</div>
               </div>
 
-              <br />
               {/* submit button */}
               {isSubmitted ? (
                 <Button variant="primary" disabled>
@@ -246,7 +246,11 @@ function Register() {
                   &nbsp; Processing...
                 </Button>
               ) : (
-                <Button variant="primary" type="submit">
+                <Button
+                  variant="primary"
+                  type="submit"
+                  style={{ marginLeft: "100px" }}
+                >
                   Register
                 </Button>
               )}
