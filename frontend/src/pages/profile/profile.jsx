@@ -113,9 +113,9 @@ export default function profile() {
 
   async function updatePassword(values) {
     const data = {
-      password: values.password
-    }
-    console.log(data)
+      password: values.password,
+    };
+    console.log(data);
 
     await axios
       .put(`${import.meta.env.VITE_BACKEND_URL}/user/${user.id}`, data)
@@ -154,13 +154,13 @@ export default function profile() {
 
   async function handleDelete() {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
@@ -187,7 +187,7 @@ export default function profile() {
             });
           });
       }
-    })
+    });
   }
 
   return (
@@ -215,7 +215,7 @@ export default function profile() {
                   }}
                   validationSchema={userSchema}
                   onSubmit={(values) => {
-                    console.log(values)
+                    console.log(values);
                     setIsSubmitted(true);
                     updateProfile(values);
                   }}
@@ -231,10 +231,14 @@ export default function profile() {
                           type="text"
                           className={
                             "form-control" +
-                            (errors.firstName && touched.firstName ? " is-invalid" : "")
+                            (errors.firstName && touched.firstName
+                              ? " is-invalid"
+                              : "")
                           }
                         />
-                        <div className="invalid-feedback">{errors.firstName}</div>
+                        <div className="invalid-feedback">
+                          {errors.firstName}
+                        </div>
                       </div>
 
                       {/* lastName */}
@@ -246,10 +250,14 @@ export default function profile() {
                           type="text"
                           className={
                             "form-control" +
-                            (errors.lastName && touched.lastName ? " is-invalid" : "")
+                            (errors.lastName && touched.lastName
+                              ? " is-invalid"
+                              : "")
                           }
                         />
-                        <div className="invalid-feedback">{errors.lastName}</div>
+                        <div className="invalid-feedback">
+                          {errors.lastName}
+                        </div>
                       </div>
 
                       {/* email */}
@@ -276,10 +284,20 @@ export default function profile() {
                           type="text"
                           className={
                             "form-control" +
-                            (errors.contactNo && touched.contactNo ? " is-invalid" : "")
+                            (errors.contactNo && touched.contactNo
+                              ? " is-invalid"
+                              : "")
                           }
+                          onInput={(e) => {
+                            e.target.value = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                          }}
                         />
-                        <div className="invalid-feedback">{errors.contactNo}</div>
+                        <div className="invalid-feedback">
+                          {errors.contactNo}
+                        </div>
                       </div>
 
                       {/* image */}
@@ -316,14 +334,12 @@ export default function profile() {
                         </Button>
                       ) : (
                         <Button variant="primary" type="submit">
-                          Register
+                          Update Profile
                         </Button>
                       )}
                     </Form>
                   )}
                 </Formik>
-                <br />
-                <br />
               </div>
             </Col>
           </Row>
@@ -420,14 +436,22 @@ export default function profile() {
             <Col>
               <Card style={{ width: "22rem", height: "20rem" }}>
                 <Card.Body>
-                  <Card.Img variant="top" src={deleteImg} style={{ width: "200px" }} />
+                  <Card.Img
+                    variant="top"
+                    src={deleteImg}
+                    style={{
+                      width: "100px",
+                      marginLeft: "100px",
+                      marginTop: "50px",
+                      marginBottom: "50px",
+                    }}
+                  />
                   <br /> <br />
                   <Card.Title>Delete This User Account</Card.Title>
-
                   <Button
                     variant="danger"
                     onClick={() => {
-                      handleDelete()
+                      handleDelete();
                     }}
                   >
                     Delete Account
