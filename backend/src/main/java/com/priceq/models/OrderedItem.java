@@ -17,6 +17,7 @@ public class OrderedItem {
 
     @Id
     private String id;
+    private int orderId;
     private String itemCode;
     private String name;
     private String barcode;
