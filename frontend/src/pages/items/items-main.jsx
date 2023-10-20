@@ -20,11 +20,11 @@ import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/navbar";
 import "../../styles/sudul/ItemsMain.css";
+import "../../styles/randula/dashboard.css";
 
-import Brands from "../../assets/data/brand.json"
-import Colors from "../../assets/data/color.json"
-import Types from "../../assets/data/type.json"
-
+import Brands from "../../assets/data/brand.json";
+import Colors from "../../assets/data/color.json";
+import Types from "../../assets/data/type.json";
 
 function ItemsMain() {
   const navigate = useNavigate();
@@ -453,7 +453,10 @@ function ItemsMain() {
                           </div>
 
                           {/* brand dropdown*/}
-                          <div className="form-group col-md-6" style={{ width: "300px" }}>
+                          <div
+                            className="form-group col-md-6"
+                            style={{ width: "300px" }}
+                          >
                             <label>Brand</label>
                             <Field
                               name="brand"
@@ -461,22 +464,32 @@ function ItemsMain() {
                               style={{ width: "300px" }}
                               className={
                                 "form-control" +
-                                (errors.brand && touched.brand ? " is-invalid" : "")
+                                (errors.brand && touched.brand
+                                  ? " is-invalid"
+                                  : "")
                               }
                             >
                               <option value="" label="Select a Brand" />
                               {Brands.map((brand) => {
                                 return (
-                                  <option key={brand.id} value={brand.name} label={brand.name} />
+                                  <option
+                                    key={brand.id}
+                                    value={brand.name}
+                                    label={brand.name}
+                                  />
                                 );
                               })}
                             </Field>
-                            <div className="invalid-feedback">{errors.brand}</div>
+                            <div className="invalid-feedback">
+                              {errors.brand}
+                            </div>
                           </div>
 
-
                           {/* color dropdown*/}
-                          <div className="form-group col-md-6" style={{ width: "300px" }}>
+                          <div
+                            className="form-group col-md-6"
+                            style={{ width: "300px" }}
+                          >
                             <label>Color</label>
                             <Field
                               name="color"
@@ -484,21 +497,32 @@ function ItemsMain() {
                               style={{ width: "300px" }}
                               className={
                                 "form-control" +
-                                (errors.color && touched.color ? " is-invalid" : "")
+                                (errors.color && touched.color
+                                  ? " is-invalid"
+                                  : "")
                               }
                             >
                               <option value="" label="Select a Color" />
                               {Colors.map((color) => {
                                 return (
-                                  <option key={color.id} value={color.name} label={color.name} />
+                                  <option
+                                    key={color.id}
+                                    value={color.name}
+                                    label={color.name}
+                                  />
                                 );
                               })}
                             </Field>
-                            <div className="invalid-feedback">{errors.color}</div>
+                            <div className="invalid-feedback">
+                              {errors.color}
+                            </div>
                           </div>
 
                           {/* type dropdown*/}
-                          <div className="form-group col-md-6" style={{ width: "300px" }}>
+                          <div
+                            className="form-group col-md-6"
+                            style={{ width: "300px" }}
+                          >
                             <label>Type</label>
                             <Field
                               name="type"
@@ -506,17 +530,25 @@ function ItemsMain() {
                               style={{ width: "300px" }}
                               className={
                                 "form-control" +
-                                (errors.type && touched.type ? " is-invalid" : "")
+                                (errors.type && touched.type
+                                  ? " is-invalid"
+                                  : "")
                               }
                             >
                               <option value="" label="Select a Type" />
                               {Types.map((type) => {
                                 return (
-                                  <option key={type.id} value={type.name} label={type.name} />
+                                  <option
+                                    key={type.id}
+                                    value={type.name}
+                                    label={type.name}
+                                  />
                                 );
                               })}
                             </Field>
-                            <div className="invalid-feedback">{errors.type}</div>
+                            <div className="invalid-feedback">
+                              {errors.type}
+                            </div>
                           </div>
                         </Col>
 
@@ -704,9 +736,7 @@ function ItemsMain() {
           </Col>
         </Row>
         <div className="item-list">
-          {/* onScroll={onScroll}
-          ref={listInnerRef} */}
-          <Table striped bordered hover>
+          <Table striped bordered hover className="ItemTable">
             <thead className="itemTableHead">
               <tr>
                 <th>Name</th>
@@ -727,45 +757,69 @@ function ItemsMain() {
                     <td colSpan={9}>
                       <BarLoader color="#36d7b7" width={1100} />
                     </td>
-
                   </tr>
                 </>
               ) : (
                 <>
-                  {allItems.filter((val) => {
-                    if (searchTerm === "") {
-                      return val;
-                    } else if (
-                      val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                      val.itemCode.toLowerCase().includes(searchTerm.toLowerCase())
-                    ) {
-                      return val;
-                    }
-                  }).map((item) => {
-                    return (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{item.itemCode}</td>
-                        <td>{item.brand}</td>
-                        <td>{item.type}</td>
-                        <td>{item.quantity}</td>
-                        <td>$ {item.retailPrice}</td>
-                        <td>
-                          <Button variant="primary" onClick={() => { handleView(item) }}>View</Button>
-                        </td>
-                        <td>
-                          <Button variant="warning" onClick={() => { handleEdit(item) }}>Edit</Button>
-                        </td>
-                        <td>
-                          <Button variant="danger" onClick={() => { handleDelete(item.id) }}>Delete</Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {allItems
+                    .filter((val) => {
+                      if (searchTerm === "") {
+                        return val;
+                      } else if (
+                        val.name
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase()) ||
+                        val.itemCode
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((item) => {
+                      return (
+                        <tr key={item.id}>
+                          <td>{item.name}</td>
+                          <td>{item.itemCode}</td>
+                          <td>{item.brand}</td>
+                          <td>{item.type}</td>
+                          <td>{item.quantity}</td>
+                          <td>$ {item.retailPrice}</td>
+                          <td>
+                            <Button
+                              variant="primary"
+                              onClick={() => {
+                                handleView(item);
+                              }}
+                            >
+                              View
+                            </Button>
+                          </td>
+                          <td>
+                            <Button
+                              variant="warning"
+                              onClick={() => {
+                                handleEdit(item);
+                              }}
+                            >
+                              Edit
+                            </Button>
+                          </td>
+                          <td>
+                            <Button
+                              variant="danger"
+                              onClick={() => {
+                                handleDelete(item.id);
+                              }}
+                            >
+                              Delete
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </>
-              )
-              }
-
+              )}
             </tbody>
           </Table>
         </div>

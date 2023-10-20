@@ -21,7 +21,7 @@ body {
 
 img.dashimg {
     max-width: 50%;
-    max-height: 60%;
+    max-height: 80%;
     margin: 0 auto;
 }
 
@@ -57,4 +57,8 @@ h1.dashh1 {
     /* Adjust the width to your preference */
     height: 100px;
     /* Adjust the height to maintain the aspect ratio */
+}
+
+Table.ItemTable {
+    width: 100%;
 }
