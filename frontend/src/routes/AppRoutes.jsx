@@ -11,6 +11,7 @@ import Cashier from "../pages/Cashier/cashier-main";
 import Reviews from "../pages/reviews/reviews";
 import Profile from "../pages/profile/profile";
 import Dashboard from "../pages/dashboard/dashboard"
+import SalesSummaryReport from "../pages/Cashier/sales-summary-report";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cashier" element={<Cashier />} />
+          <Route path="/sales-summary-report" element={<SalesSummaryReport />} />
         </Routes>
       </Router>
     </>

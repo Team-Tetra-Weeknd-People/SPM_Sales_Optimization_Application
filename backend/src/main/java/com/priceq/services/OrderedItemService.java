@@ -28,6 +28,7 @@ public class OrderedItemService {
         if (existingItem == null) {
             return false;
         } else {
+            existingItem.setOrderId(updatedTtem.getOrderId());
             existingItem.setItemCode(updatedTtem.getItemCode());
             existingItem.setName(updatedTtem.getName());
             existingItem.setBarcode(updatedTtem.getBarcode());
