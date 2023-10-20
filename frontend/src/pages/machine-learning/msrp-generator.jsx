@@ -6,7 +6,8 @@ import axios from "axios";
 import Graph from "../../components/graph";
 import Swal from "sweetalert2";
 import Spinner from "react-bootstrap/Spinner";
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 function MSRPGenerator() {
   const { itemID } = useParams();
   const [addedItem, setAddedItem] = useState({
@@ -22,6 +23,16 @@ function MSRPGenerator() {
     getItem();
   }, []);
 
+  function captureAndGeneratePDF() {
+    const elementToCapture = document.getElementById('full-content');
+    html2canvas(elementToCapture).then((canvas) => {
+      const pdf = new jsPDF();
+      const imgData = canvas.toDataURL('image/jpeg');
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+      pdf.save(`msrp_report_id_${itemID}.pdf`);
+    });
+  }
+  
   const getItem = async () => {
     try {
       const response = await axios.get(
@@ -122,7 +133,7 @@ function MSRPGenerator() {
   return (
     <>
       <Navbar />
-      <div className="page-container">
+      <div className="page-container" id="full-content">
         <center className="heading-msrp">
           <h1>Most Suggested Retail Price</h1>
         </center>
@@ -273,6 +284,8 @@ function MSRPGenerator() {
               </p>
             </div>
           </div>
+          <div className="gen-button-container">
+          <button className="gen-button" onClick={captureAndGeneratePDF}>Generate MSRP Report</button></div>
         </div>
       </div>
     </>

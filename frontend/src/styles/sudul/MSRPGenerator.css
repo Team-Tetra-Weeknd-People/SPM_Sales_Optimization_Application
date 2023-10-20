@@ -7,7 +7,7 @@
   margin: 0 auto;
   padding: 20px;
   margin-top: 100px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat';
 }
 
 .msrp-container {
@@ -17,19 +17,22 @@
   max-width: 1400px;
   /* Adjust the maximum width as needed */
   margin: 0 auto;
-  padding: 20px;
   min-width: 700px;
+  font-family: 'Montserrat';
+  background-color: #fff6;
+  border-radius: 5px;
+  box-shadow: 5px 6px 5px rgba(5, 221, 203, 0.382);
 }
-
 /* MSRP generator container styles (left) */
 .msrp-gen-container {
-  background-color: #d8afbdc5;
+  background-color: #d4d181c5;
   flex: 1;
   padding: 20px;
   min-width: 400px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Montserrat';
 }
 
 /* Input container styles */
@@ -42,6 +45,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  font-family: 'Montserrat';
 }
 
 /* Input field styles */
@@ -65,34 +69,33 @@ button {
 /* Result container styles */
 .result-container {
   margin-top: 20px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat';
   font-size: x-large;
 }
 
 /* MSRP value styles */
 .msrp-value {
-  font-size: 18px;
+  font-family: 'JetBrains Mono';
+  font-size: 40px;
   font-weight: bold;
-  color: #ffffff;
+  color: #ff0000;
 }
 
 /* Graph container styles (right) */
 .graph-msrp {
-  background-color: #a4acaba4;
+  background-color: #ffffff6c;
   flex: 1;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   min-width: 700px;
-  /* Add additional styling for your graph container here */
-  /* Example: height: 400px; */
 }
 
 .change-retail-price {
-  border: 1px solid #ccc;
+  background-color: #fff6;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 4px 5px rgba(5, 221, 88, 0.541);
   margin-top: 20px;
   text-align: center;
   font-size: 18px;
@@ -101,10 +104,12 @@ button {
 }
 
 .heading-msrp {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: 'Montserrat';
   font-size: xx-large;
-  color: #514875;
-  background-color: #d4d4d46b;
+  color: #0a051c;
   font-weight: 700;
   border-radius: 5px;
 }
@@ -156,33 +161,35 @@ button {
 }
 
 .button-container-msrp input[type="submit"] {
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: 600;
-  background-color: #3590f1;
-  color: #ffffff;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  background-color: #34d072;
+  color: #000;
   transition: all 0.3s ease-in-out;
+  border: transparent;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .button-container-msrp input[type="submit"]:hover {
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: 600;
-  background-color: #1b1ff809;
-  color: #000;
+  font-family: 'Montserrat';
+  background-color: #0c5bb0;
+  color: #ffffff;
 }
 
 .red-msrp-desc {
   font-size: small;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  color: #ba0909;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  color: rgb(124, 37, 37)
 }
 
 .msrp-item-details-container {
+  background-color: #fff6;
   margin-top: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  box-shadow: 3px 4px 5px rgba(215, 163, 8, 0.541);
 }
 
 .msrp-item-details {
@@ -193,7 +200,7 @@ button {
   /* Adjust the maximum width as needed */
   margin: 0 auto;
   min-width: 700px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Montserrat';
 }
 
 .msrp-item-details-container h2 {
@@ -214,7 +221,7 @@ button {
 }
 
 .msrp-item-details-left h3 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Montserrat';
   font-size: x-large;
   font-weight: 600;
 }
@@ -232,4 +239,22 @@ button {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   font-size: medium;
+}
+.gen-button {
+  margin: 10px;
+  margin-bottom: 0px;
+  background-color: #900d0d;
+  cursor: pointer;
+}
+
+.gen-button:hover {
+  background-color: #ac6705;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+.gen-button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
