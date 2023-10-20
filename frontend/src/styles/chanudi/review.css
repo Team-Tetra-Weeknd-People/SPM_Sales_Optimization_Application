@@ -12,7 +12,7 @@
 .centered-card {
     width: 200px;
     height: 200px;
-    background-color: aqua;
+    background-color: rgba(218, 219, 221, 0.945);
     text-align: center;
     border-radius: 10px;
 }
@@ -27,4 +27,14 @@ img.reviewImg {
 .reviewAll {
     display: grid;
     grid-template-columns: auto auto auto;
+}
+
+.heading1 {
+    color: white;
+}
+
+img.rewImage {
+    border-radius: 50%;
+    size: 90%;
+    margin-left: 20px;
 }

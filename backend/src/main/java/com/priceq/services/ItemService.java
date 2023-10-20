@@ -8,7 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -76,4 +78,23 @@ public class ItemService {
         return repository.findById(id);
     }
 
+    public Map<String, Long> countItemsByBrand() {
+        List<Item> items = repository.findAll();
+
+        return items.stream()
+                .collect(Collectors.groupingBy(Item::getBrand, Collectors.counting()));
+    }
+
+    public Map<String, Long> getNumberOfItemsByColor() {
+        List<Item> items = repository.findAll();
+
+        return items.stream()
+                .collect(Collectors.groupingBy(Item::getColor, Collectors.counting()));
+    }
+
+    public Map<String, Long> getCountByType() {
+        List<Item> items = repository.findAll();
+        return items.stream()
+                .collect(Collectors.groupingBy(Item::getType, Collectors.counting()));
+    }
 }

@@ -6,12 +6,12 @@ import Register from "../pages/authentication/register";
 import ItemsMain from "../pages/items/items-main";
 import ItemAdd from "../pages/items/item-add";
 import BarcodeGenerator from "../pages/items/barcode-generator";
-import DataFeeder from "../pages/machine-learning/data-feeder";
 import MSRPGenerator from "../pages/machine-learning/msrp-generator";
 import Cashier from "../pages/Cashier/cashier-main";
 import Reviews from "../pages/reviews/reviews";
 import Profile from "../pages/profile/profile";
 import Dashboard from "../pages/dashboard/dashboard"
+import SalesSummaryReport from "../pages/Cashier/sales-summary-report";
 
 export default function App() {
   return (
@@ -28,11 +28,11 @@ export default function App() {
             element={<BarcodeGenerator />}
           />
           <Route path="/msrp-generator/:itemID" element={<MSRPGenerator />} />
-          <Route path="/d" element={<DataFeeder />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cashier" element={<Cashier />} />
+          <Route path="/sales-summary-report" element={<SalesSummaryReport />} />
         </Routes>
       </Router>
     </>

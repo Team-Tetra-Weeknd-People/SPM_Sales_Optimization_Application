@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(value = "*")
@@ -93,5 +94,10 @@ public class ReviewController {
         }else{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
+    }
+
+    @GetMapping("/item-count-by-rating")
+    public Map<Float, Long> getItemCountByRating() {
+        return service.getItemCountByRating();
     }
 }

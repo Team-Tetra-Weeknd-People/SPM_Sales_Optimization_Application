@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(value = "*")
@@ -85,5 +86,20 @@ public class ItemController {
         else{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
+    }
+
+    @GetMapping("/count-by-brand")
+    public Map<String, Long> getItemCountByBrand() {
+        return service.countItemsByBrand();
+    }
+
+    @GetMapping("/count-by-color")
+    public Map<String, Long> getNumberOfItemsByColor() {
+        return service.getNumberOfItemsByColor();
+    }
+
+    @GetMapping("/count-by-type")
+    public Map<String, Long> getCountByType() {
+        return service.getCountByType();
     }
 }

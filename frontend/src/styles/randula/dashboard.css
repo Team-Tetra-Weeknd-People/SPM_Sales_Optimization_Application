@@ -1,89 +1,64 @@
- .dashboardContainer {
-     width: 60%;
-     margin: 0 auto;
-     margin-top: 150px;
-     height: 500px;
-     background-color: aqua;
- }
-
- img.dashimg {
-     max-width: 50%;
-     max-height: 50%;
-     margin: 0 auto;
- }
-
- .dashcol {
-     padding: 20px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     cursor: pointer;
-     transition: 0.5s;
- }
-
- .dashcol:hover {
-     transform: scale(1.05);
-     filter: grayscale(100%);
- }
-
- .odd {
-     background-color: rgb(139, 137, 137);
- }
-
- .even {
-     background-color: rgb(228, 228, 228);
- }
-
- h1.dashh1 {
-     font-size: 4vw;
-     text-align: center;
-     font-family: 'Nunito Sans', sans-serif;
-
- }
-
- /*
-
-.cluster {
-    height: 40vh;
-    padding: 10px;
+body {
+    background-image: url('../../assets/images/cover.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
-    transition: 0.3s;
-    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Adjust the alpha value for transparency */
+    margin: 0;
+    /* Remove default margin to avoid spacing */
+    padding: 0;
+    /* Remove default padding to avoid spacing */
 }
 
-.cluster:hover {
-    transform: scale(0.95);
-    filter: grayscale(100%);
+.dashboardContainer {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 150px;
+    height: 500px;
+    background-color: aqua;
+    /* background-image: url('../../assets/images/cover.avif'); */
+}
+
+img.dashimg {
+    max-width: 50%;
+    max-height: 80%;
+    margin: 0 auto;
+}
+
+.dashcol {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    z-index: 1;
+    transition: 0.5s;
 }
 
-
-.leftUp {
-    background-image: url('../../assets/images/dashch.jpg');
+.dashcol:hover {
+    transform: scale(1.05);
+    filter: grayscale(100%);
 }
 
-.rightUp {
-    background-image: url('../../assets/images/dashitem.jpg');
+.odd {
+    background-color: rgb(160, 160, 160);
 }
 
-.leftDown {
-    background-image: url('../../assets/images/dashreview.jpg');
+.even {
+    background-color: rgb(228, 228, 228);
 }
 
-.rightDown {
-    background-image: url('../../assets/images/dashprof.jpg');
+h1.dashh1 {
+    font-size: 3vw;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
+.cardImage {
+    width: 100px;
+    /* Adjust the width to your preference */
+    height: 100px;
+    /* Adjust the height to maintain the aspect ratio */
+}
 
-
-h2.overlayHead {
-    text-align: center;
-    font-size: 1.2vw;
-    margin: 20% 0 0 18%;
-    width: 70%;
-    letter-spacing: 5px;
-    line-height: 1.5rem;
-} */
+Table.ItemTable {
+    width: 100%;
+}

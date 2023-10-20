@@ -32,7 +32,7 @@ public class UserService {
             if(updatedUser.getFirstName() != null)
                 existingUser.setFirstName(updatedUser.getFirstName());
             if(updatedUser.getLastName() != null)
-                existingUser.setFirstName(updatedUser.getLastName());
+                existingUser.setLastName(updatedUser.getLastName());
             if(updatedUser.getEmail() != null)
                 existingUser.setEmail(updatedUser.getEmail());
             if(updatedUser.getContactNo() != null)
