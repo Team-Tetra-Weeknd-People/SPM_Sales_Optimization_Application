@@ -76,4 +76,16 @@ public class ItemService {
         return repository.findById(id);
     }
 
+    public List<Item> getItemsByBrand(String brand) {
+        return repository.findByBrand(brand);
+    }
+
+    public List<Item> getItemsByColor(String color) {
+        return repository.findByColor(color);
+    }
+
+    public List<Item> getItemsByType(String type) {
+        return repository.findByType(type);
+    }
+
 }

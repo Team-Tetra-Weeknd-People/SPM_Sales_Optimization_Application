@@ -86,4 +86,21 @@ public class ItemController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
     }
+
+    @GetMapping("/brand")
+    public List<Item> getItemsByBrand(@RequestParam String brand) {
+        return service.getItemsByBrand(brand);
+    }
+
+
+    @GetMapping("/color")
+    public List<Item> getItemsByColor(@RequestParam String color) {
+        return service.getItemsByColor(color);
+    }
+
+
+    @GetMapping("/type")
+    public List<Item> getItemsByType(@RequestParam String type) {
+        return service.getItemsByType(type);
+    }
 }
