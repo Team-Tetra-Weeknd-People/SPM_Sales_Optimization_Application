@@ -6,6 +6,7 @@ import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
 import $ from "jquery";
 import Spinner from "react-bootstrap/Spinner";
 import { storage } from "../../firebase";
@@ -34,15 +35,15 @@ function ItemsMain() {
   const [item, setItem] = useState({});
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+
+  const [brandList, setBrandList] = useState([]);
+  const [colorList, setColorList] = useState([]);
+  const [typeList, setTypeList] = useState([]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [image, setImage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
-  // const [currPage, setCurrPage] = useState(1); // storing current page number
-  // const [prevPage, setPrevPage] = useState(0); // storing prev page number
-  // const [userList, setUserList] = useState([]); // storing list
-  // const [wasLastList, setWasLastList] = useState(false); // setting a flag to know the last list
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -60,6 +61,9 @@ function ItemsMain() {
     handleShowEdit();
   };
 
+  const handleCloseStats = () => setShowStats(false);
+  const handleShowStats = () => setShowStats(true);
+
   useEffect(() => {
     getAllItems();
   }, []);
@@ -70,6 +74,35 @@ function ItemsMain() {
         `${import.meta.env.VITE_BACKEND_URL}/item/`
       );
       setAllItems(response.data);
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/item/count-by-brand`)
+        .then((res) => {
+          const BrandCountCheck = Object.keys(res.data).map((key) => ({
+            name: key,
+            count: res.data[key],
+          }));
+          setBrandList(BrandCountCheck);
+        });
+
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/item/count-by-color`)
+        .then((res) => {
+          const ColorCountCheck = Object.keys(res.data).map((key) => ({
+            name: key,
+            count: res.data[key],
+          }));
+          setColorList(ColorCountCheck);
+        });
+
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/item/count-by-type`)
+        .then((res) => {
+          const TypeCountCheck = Object.keys(res.data).map((key) => ({
+            name: key,
+            count: res.data[key],
+          }));
+          setTypeList(TypeCountCheck);
+        });
     } catch (error) {
       console.error("Error fetching items:", error);
     }
@@ -240,6 +273,35 @@ function ItemsMain() {
           });
       }
     });
+  }
+
+  function printModalContent() {
+    // Extract the modal content
+    const modalContent = document.querySelector(".stat-modal-div");
+
+    // Create a new window for printing
+    const printWindow = window.open("", "_blank");
+
+    // Write the modal content to the new window
+    printWindow.document.write(`
+      <html>
+      <head>
+        <title>Item Statistics</title>
+      </head>
+      <body>
+        ${modalContent.outerHTML}
+      </body>
+      </html>
+    `);
+
+    // Close the document for writing
+    printWindow.document.close();
+
+    // Print the content
+    printWindow.print();
+
+    // Close the new window after printing
+    printWindow.close();
   }
 
   return (
@@ -707,6 +769,95 @@ function ItemsMain() {
         </Modal.Footer>
       </Modal>
 
+      {/* item stats modal */}
+      <Modal
+        show={showStats}
+        onHide={handleCloseStats}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Item Statistics</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="stat-modal-div">
+            <Alert variant="primary">Count By Clothing Brands</Alert>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Clothing Brand</th>
+                  <th>No of Items</th>
+                </tr>
+              </thead>
+              <tbody>
+                {brandList.map((brand, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{brand.name}</td>
+                      <td>{brand.count}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+
+            <Alert variant="success">Count By Clothing Types</Alert>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Clothing Type</th>
+                  <th>No of Items</th>
+                </tr>
+              </thead>
+              <tbody>
+                {typeList.map((type, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{type.name}</td>
+                      <td>{type.count}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+
+            <Alert variant="dark">Count By Clothing Colors</Alert>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Brand</th>
+                  <th>No of Items</th>
+                </tr>
+              </thead>
+              <tbody>
+                {colorList.map((color, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{color.name}</td>
+                      <td>{color.count}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseStats}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={printModalContent}>
+            Print Statistics
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Navbar />
       <div className="items-container-main">
         <Row>
@@ -718,6 +869,8 @@ function ItemsMain() {
             >
               Add New Item
             </Button>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <Button onClick={handleShowStats}>Get Item Statistic</Button>
           </Col>
           <Col sm={3}>
             <h2>All Items</h2>
