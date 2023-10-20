@@ -1,14 +1,23 @@
-body {
+body::before {
+    content: "";
     background-image: url('../../assets/images/cover.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: rgba(255, 255, 255, 0.2);
-    /* Adjust the alpha value for transparency */
-    margin: 0;
-    /* Remove default margin to avoid spacing */
-    padding: 0;
-    /* Remove default padding to avoid spacing */
+    filter: blur(5px); /* Adjust the blur value (5px in this example) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place it behind the content */
 }
+
+body {
+    /* Your content styles here */
+    margin: 0;
+    padding: 0;
+}
+
 
 .dashboardContainer {
     width: 60%;
