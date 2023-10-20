@@ -84,10 +84,10 @@ export default function reviews() {
         const reviewCountCheck = Object.keys(res.data).map((key) => ({
           rating: key,
           count: res.data[key],
-          }));
-          setReviewCount(reviewCountCheck);
-          console.log(reviewCountCheck);
-          console.log(reviewCount);
+        }));
+        setReviewCount(reviewCountCheck);
+        console.log(reviewCountCheck);
+        console.log(reviewCount);
       });
   }, []);
 
@@ -262,15 +262,15 @@ export default function reviews() {
         <Bar dataKey="count" fill="#8884d8" />
       </BarChart>
     </ResponsiveContainer>
-  )
+  );
 
   function printModalContent() {
     // Extract the modal content
-    const modalContent = document.querySelector('.stat-modal-div');
-  
+    const modalContent = document.querySelector(".stat-modal-div");
+
     // Create a new window for printing
-    const printWindow = window.open('', '_blank');
-  
+    const printWindow = window.open("", "_blank");
+
     // Write the modal content to the new window
     printWindow.document.write(`
       <html>
@@ -282,13 +282,13 @@ export default function reviews() {
       </body>
       </html>
     `);
-  
+
     // Close the document for writing
     printWindow.document.close();
-  
+
     // Print the content
     printWindow.print();
-  
+
     // Close the new window after printing
     printWindow.close();
   }
@@ -310,7 +310,10 @@ export default function reviews() {
             >
               {!newReviews.length ? (
                 <>
-                  <div className="clock" style={{ marginLeft: "150px", marginTop: "150px" }}>
+                  <div
+                    className="clock"
+                    style={{ marginLeft: "150px", marginTop: "150px" }}
+                  >
                     <BeatLoader color="#ffffff" />
                   </div>
                 </>
@@ -342,7 +345,6 @@ export default function reviews() {
               <Image src={reviewImage} rounded className="rewImage" />
             </Row>
             <Row>
-              <Col sm={3}></Col>
               <Col sm={4}>
                 <Button variant="primary" onClick={handleShowAll}>
                   View All Reviews
@@ -486,10 +488,11 @@ export default function reviews() {
                   <Field
                     name="description"
                     id="description"
-                    className={`form-control ${touched.description && errors.description
-                      ? "is-invalid"
-                      : ""
-                      }`}
+                    className={`form-control ${
+                      touched.description && errors.description
+                        ? "is-invalid"
+                        : ""
+                    }`}
                   />
                   <div className="invalid-feedback">
                     {touched.description && errors.description
@@ -602,10 +605,11 @@ export default function reviews() {
                   <Field
                     name="description"
                     id="description"
-                    className={`form-control ${touched.description && errors.description
-                      ? "is-invalid"
-                      : ""
-                      }`}
+                    className={`form-control ${
+                      touched.description && errors.description
+                        ? "is-invalid"
+                        : ""
+                    }`}
                   />
                   <div className="invalid-feedback">
                     {touched.description && errors.description
@@ -669,38 +673,38 @@ export default function reviews() {
         keyboard={false}
         size="lg"
       >
-        <div class="stat-modal-div">
-        <Modal.Header closeButton>
-          <Modal.Title>Review Statistics</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="stat-card-body">
-          <table className="stat-table">
-            <thead>
-              <tr>
-                <th>Rating</th>
-                <th>Count</th>
-              </tr>
-            </thead>
-            <tbody>
-            {reviewCount.map((item) => (
-              <tr key={item.rating}>
-                <td>{item.rating}</td>
-                <td>{item.count}</td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
-          </div>
-          <div className="stat-graph-card-body">
-            <div className="stat-graph-container">
-            <ReviewBarChart data={reviewCount} />
+        <div className="stat-modal-div">
+          <Modal.Header closeButton>
+            <Modal.Title>Review Statistics</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="stat-card-body">
+              <table className="stat-table">
+                <thead>
+                  <tr>
+                    <th>Rating</th>
+                    <th>Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reviewCount.map((item) => (
+                    <tr key={item.rating}>
+                      <td>{item.rating}</td>
+                      <td>{item.count}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          </div>
-        </Modal.Body>
+            <div className="stat-graph-card-body">
+              <div className="stat-graph-container">
+                <ReviewBarChart data={reviewCount} />
+              </div>
+            </div>
+          </Modal.Body>
         </div>
         <Modal.Footer>
-        <Button variant="primary" onClick={printModalContent}>
+          <Button variant="primary" onClick={printModalContent}>
             Print
           </Button>
           <Button variant="secondary" onClick={handleCloseStat}>
@@ -708,7 +712,6 @@ export default function reviews() {
           </Button>
         </Modal.Footer>
       </Modal>
-      
     </>
   );
 }
