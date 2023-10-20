@@ -8,6 +8,14 @@ import Card from "react-bootstrap/Card";
 import Swal from "sweetalert2";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 import axios from "axios";
 
@@ -33,12 +41,14 @@ export default function reviews() {
   const [newReviews, setNewReviews] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [review, setReview] = useState({});
+  const [reviewCount, setReviewCount] = useState([]);
 
   const [items, setItems] = useState([]);
 
   const [showAll, setShowALl] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showStat, setShowStat] = useState(false);
 
   const handleCloseAll = () => setShowALl(false);
   const handleShowAll = () => setShowALl(true);
@@ -48,6 +58,9 @@ export default function reviews() {
 
   const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = () => setShowEdit(true);
+
+  const handleCloseStat = () => setShowStat(false);
+  const handleShowStat = () => setShowStat(true);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -61,6 +74,20 @@ export default function reviews() {
       .get(`${import.meta.env.VITE_BACKEND_URL}/review/getNew`)
       .then((res) => {
         setNewReviews(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/review/item-count-by-rating`)
+      .then((res) => {
+        const reviewCountCheck = Object.keys(res.data).map((key) => ({
+          rating: key,
+          count: res.data[key],
+          }));
+          setReviewCount(reviewCountCheck);
+          console.log(reviewCountCheck);
+          console.log(reviewCount);
       });
   }, []);
 
@@ -226,6 +253,46 @@ export default function reviews() {
       });
   }
 
+  const ReviewBarChart = ({ data }) => (
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={data}>
+        <XAxis dataKey="rating" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="count" fill="#8884d8" />
+      </BarChart>
+    </ResponsiveContainer>
+  )
+
+  function printModalContent() {
+    // Extract the modal content
+    const modalContent = document.querySelector('.stat-modal-div');
+  
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank');
+  
+    // Write the modal content to the new window
+    printWindow.document.write(`
+      <html>
+      <head>
+        <title>Modal Content</title>
+      </head>
+      <body>
+        ${modalContent.outerHTML}
+      </body>
+      </html>
+    `);
+  
+    // Close the document for writing
+    printWindow.document.close();
+  
+    // Print the content
+    printWindow.print();
+  
+    // Close the new window after printing
+    printWindow.close();
+  }
+
   return (
     <>
       <Navbar />
@@ -284,6 +351,11 @@ export default function reviews() {
               <Col sm={4}>
                 <Button variant="primary" onClick={handleShowAdd}>
                   Add New Review
+                </Button>{" "}
+              </Col>
+              <Col sm={4}>
+                <Button variant="primary" onClick={handleShowStat}>
+                  Review Statistics
                 </Button>{" "}
               </Col>
             </Row>
@@ -589,6 +661,54 @@ export default function reviews() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <Modal
+        show={showStat}
+        onHide={handleCloseStat}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+      >
+        <div class="stat-modal-div">
+        <Modal.Header closeButton>
+          <Modal.Title>Review Statistics</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="stat-card-body">
+          <table className="stat-table">
+            <thead>
+              <tr>
+                <th>Rating</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+            {reviewCount.map((item) => (
+              <tr key={item.rating}>
+                <td>{item.rating}</td>
+                <td>{item.count}</td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+          </div>
+          <div className="stat-graph-card-body">
+            <div className="stat-graph-container">
+            <ReviewBarChart data={reviewCount} />
+            </div>
+          </div>
+        </Modal.Body>
+        </div>
+        <Modal.Footer>
+        <Button variant="primary" onClick={printModalContent}>
+            Print
+          </Button>
+          <Button variant="secondary" onClick={handleCloseStat}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
     </>
   );
 }
