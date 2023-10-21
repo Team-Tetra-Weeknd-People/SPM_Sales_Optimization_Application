@@ -445,7 +445,7 @@ function ItemsMain() {
                     color: item.color,
                     type: item.type,
                     cost: item.cost,
-                    hsrp: item.type,
+                    hsrp: item.hsrp,
                     retailPrice: item.retailPrice,
                     quantity: item.quantity,
                   }}
