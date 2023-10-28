@@ -2,7 +2,7 @@
 
 Price Q Web Application is built for the Clothing Industry to calculate the MSRP (Most Suitable Retail Price) for the clothing items by reading the attributes of the clothing items (Manufacturing Cost, etc..) throuhg a machine learning script. The purpose of this application is to get the best price for the clothing items to optimize the sales and improve profit for the clothing items.
 
-[Machine Learning Script]([https://www.google.com](https://github.com/Team-Tetra-Weeknd-People/SalesOptimizationPython)
+[Machine Learning Script](https://github.com/Team-Tetra-Weeknd-People/SalesOptimizationPython)
 
 ##
 
